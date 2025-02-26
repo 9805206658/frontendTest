@@ -1,0 +1,105 @@
+*
+{
+  padding:0;
+  font-family: Tomato Grotesk, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif;
+
+  margin:0;
+  box-sizing:border-box;
+}
+
+.navbarContainer
+{
+  display: flex;
+  flex-direction:row;
+  column-gap:30px; 
+  padding: 1px 15px;
+  position:sticky;
+  top:0px;
+  background:#fff;  
+}
+
+ul{
+  display:flex;
+  column-gap: 1vw;
+  align-items:center;
+}
+ul li,span{
+  list-style-type:none;
+  font-size:1.25rem;
+  font-family: Tomato Grotesk, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif;
+  font-weight:400;
+  text-rendering: optimizeLegibility;
+}
+.imgContainer{
+  padding:2px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.imgContainer span{
+  text-align: center;
+  font-weight:bold;
+  font-size:2rem;
+}
+img
+{
+  width:50px;
+  height:50px;
+}
+.navbarContainer ul li{
+  padding:20px 10px;
+  /* border:3px solid red; */
+}
+
+li:hover
+{
+  /* background-color: rgba(128, 128, 128, 0.502); */
+  border-radius: 0.125rem;
+  font-weight: bold;
+ /* line-height: 2rem; */
+  background-color: #f7f8fb;
+  font-weight: 500;
+
+}
+.link {
+  color: #000; 
+  text-decoration: none;
+  /* background-color: #f7f8fb; */
+
+}
+.active {
+  color: #4caf50; 
+  font-weight: bold; 
+  padding:20px 10px;
+  background-color: #f7f8fb;
+}
+.logoutContainer{
+  display: flex;
+  align-items: center;
+  column-gap:1vw;
+}
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 300px; /* Adjust width as needed */
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.searchInput {
+  width: 100%;
+   padding: 10px 10px; /* Leave space for icon */
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 12px;
+  /* font-family: Tomato Grotesk, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif; */
+  font-size: 1.5rem;
+  color: #888; /* Adjust color */
+  cursor: pointer;
+}

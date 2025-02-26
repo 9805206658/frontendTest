@@ -1,15 +1,23 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+// import { reactRouter } from "@react-router/dev/vite";
+import tsconfigPaths from 'vite-tsconfig-paths';
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    // reactRouter(),
+    tsconfigPaths(),
+  ],
   server: {
     proxy: {
-      '/api': {  // This will forward all requests starting with "/api" to your backend
+      '/api': {
         target: 'https://backendtest-1-kora.onrender.com',
         changeOrigin: true,
-        secure: false, // Set to true if the backend uses HTTPS
-        rewrite: (path) => path.replace(/^\/api/, ''), // Removes "/api" before sending request
+        secure: false, 
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
