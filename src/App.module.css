@@ -15,6 +15,7 @@
   position:sticky;
   top:0px;
   background:#fff;  
+  /* display: none; */
 }
 
 ul{
@@ -101,4 +102,187 @@ li:hover
   font-size: 1.5rem;
   color: #888; /* Adjust color */
   cursor: pointer;
+}
+.navbarContainer ul li  i{
+  display: none;
+}
+
+.overlay{
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0p;
+  left:0;
+  right:0;
+  /* display: none; */
+  bottom:0px;
+  background-color: rgba(0,0,0,0.5);
+  z-index:2;
+  cursor: pointer;
+}
+.hamburgerContainer
+{
+  display: none;
+  margin:auto;
+}
+.hamburgerContainer button
+{
+  border:none;
+}
+
+
+
+
+@media screen and (min-width:370px) {
+
+  .navbarContainer{
+    background-color: orange;
+  }
+  .hamburgerContainer{
+    display: inline;
+  }
+  .hamburgerContainer button i{
+    font-size:2rem;
+  }
+
+  .navbarContainer
+  { column-gap:3vw;  }
+
+  .navbarContainer ul
+  {
+    display: none;
+  }
+  .logoutContainer
+  {
+    display: none;
+  }
+  .searchInput{
+    padding:5px 1px;
+  }
+  .searchContainer {
+     width: 80%;
+     padding: 5px;
+  }
+  .searchIcon{
+    font-size:1rem;
+  }
+  .followLink
+  {
+   border:3px solid blue;
+  }
+ 
+  .imgContainer span{
+    
+    font-size:1rem;
+  }
+
+
+}
+@media screen and (min-width:400px)
+{
+  .navbarContainer ul li{
+   
+    padding:0px 0px 0px 0px; 
+}
+.navbarContainer ul li span{
+  font-size: 0.60rem;
+}
+
+}
+
+@media screen and (min-width:600px)
+{
+  .navbarContainer ul li{
+   
+    padding:0px 0px 0px 0px; 
+}
+.navbarContainer ul li span{
+  font-size: 0.90rem;
+}
+
+}
+
+@media screen and (min-width:500px)
+{
+  .navbarContainer
+{
+  column-gap:0px; 
+  background:#fff;  
+}
+  .hamburgerContainer{
+    display: none;
+  }
+  .navbarContainer ul
+  {
+    display: flex;
+    padding:0px
+  }
+  .navbarContainer ul li{
+   
+      padding:0px 5px 0px 0px; 
+  }
+  
+  .logoutContainer
+  {
+    display: inline;
+  }
+
+  .searchContainer {
+    max-width: 150px; 
+    padding: 3px;
+  }
+  
+  .searchInput {
+    width: 100%;
+     padding: 5px 5px; 
+    font-size: 0.75rem;
+  }
+  
+  .logoutContainer{
+    display: flex;
+  }
+  .logoutContainer span{
+    display: none;
+  } 
+
+}
+
+@media screen and (min-width:750px)
+{
+
+  .logoutContainer span{
+    display: inline;
+    font-size:0.90rem;
+  } 
+
+
+  .searchContainer {
+    max-width: 300px; 
+    padding: 5px;
+  }
+  
+  .searchInput {
+    font-size: 0.90rem;
+  }
+}
+
+
+@media screen  and (min-width:1300px){
+  .navbarContainer{
+    column-gap: 30px;
+    padding: 1px 15px;
+  }
+
+  .navbarContainer ul li span{
+
+   font-size:1.25rem;
+  }
+  .imgContainer  span 
+  {
+    font-size: 2rem;
+  }
+  .logoutContainer span{
+    font-size:1.25rem;
+
+  }
 }

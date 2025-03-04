@@ -3,9 +3,9 @@ import Style from '../footer/footer.module.css';
 const Footer =()=>
 { return (
         <div>
-             <footer>
+       <footer>
         <div className={Style.footerHeader}>
-            JOIN <span id="companyName"></span> AND GET 10%FF
+           <span className="companyName"> JOIN KINETIC BICYCLE SHOP AND GET  off </span> 
             <button><a href="signup.html">SIGN UP FOR FREE </a> <i class="fa-solid fa-arrow-right"></i></button>
         </div>
         <div  className={Style.footerContainer}>
@@ -45,7 +45,7 @@ const Footer =()=>
             </div>
 
             <div className={Style.followLink}>
-                 <h6 className={`${Style.footerItemTitle}`} style={{textAlign:"center" ,marginBottom:"20px"}}>Follow Us</h6>
+                 <h6 className={`${Style.footerItemTitle}`} >Follow Us</h6>
                     <li> 
                         <a href="https://www.instagram.com/?hl=en">
                           <i class="fa-brands fa-instagram"></i>
@@ -57,9 +57,9 @@ const Footer =()=>
                          </a>
                     </li>
                     <li> 
-                            <a href="https://www.facebook.com/photo?fbid=1873035576181106&set=pcb.1873037882847542">
-                               <i class="fa-brands fa-facebook"></i>
-                            </a>
+                         <a href="https://www.facebook.com/photo?fbid=1873035576181106&set=pcb.1873037882847542">
+                         <i class="fa-brands fa-facebook"></i>
+                        </a>
                     </li>
              </div>
         </div>

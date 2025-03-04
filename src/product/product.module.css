@@ -2,11 +2,10 @@
 .productWrapper
 {  
     /* border:3px solid green; */
-    width:13.6vw;
+    width:13.3vw;
     background-color: white;
     border-radius:10px;
     box-shadow: 1px 1px 8px gray;
-    border:3px solid green;
     transition:all 1s linear 0s; 
     /* background-color:green; */
 
@@ -17,9 +16,7 @@
 }
 .productWrapper:hover
 {
-     border:1px solid black;
     box-shadow: none;
-    /* transition:all 1s linear 0s;  */
     cursor:pointer;
 
 }
@@ -42,3 +39,33 @@
 {
     font-weight:bold;
 }
+
+
+@media screen and (min-width:370px)
+{
+    .productWrapper{
+       width:90vw;
+    }
+}
+
+@media screen and (min-width:500px)
+{
+    .productWrapper{
+       width:45vw;
+    }
+}
+
+@media screen and (min-width:900px)
+{
+    .productWrapper{
+       width:25.3vw;
+    }
+}
+
+@media screen and (min-width:1300px)
+{
+    .productWrapper{
+       width:13.3vw;
+    }
+}
+

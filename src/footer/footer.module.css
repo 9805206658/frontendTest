@@ -6,7 +6,6 @@ flex-direction: column;
 margin-top:15px;
 color:white;
 background-image:linear-gradient(133.34deg,#333 -.05%,#0c183a 112.17%);
-/* justify-content:center; */
 align-items: center;
 padding:20px 0px;
 }
@@ -14,24 +13,20 @@ padding:20px 0px;
 {
     background-color:yellow;
     text-align:center;
-    /* height:90px; */
     color:red;
-    width:100%;
     line-height:90px;
-    font-weight:bold;
-    font-size:30px;
-    margin-left:-20px;
+       font-weight:bold;
+       font-size:30px;
+    padding:0px 500px;   
 
 }
 
 .footerHeader button
-{
-
-    font-size:20px;
-    font-weight:bold;
+{      font-size:20px;
+       font-weight:bold;
     margin-left:50px;
+    /* background-color: blue; */
     padding:2px 5px 2px 5px ;
-
 }
 .footerHeader button a
 {
@@ -51,38 +46,34 @@ padding:20px 0px;
 }
 .footerItem
 {
-    margin-left:100px;
+     margin-left:100px;
 }
-.footerItem li
-{
-    list-style-type:none;
-}
+
 .footerItemTitle
 {
-    font-weight:bold;
-    font-size:23px;
-    /* color:gold; */
+       font-weight:bold;
+       font-size:23px;
     margin-bottom:10px;
 }
-.footerItem li{margin-top:2px;}
+.footerItem li{
+    margin-top:2px;
+    list-style-type:none;
+}
 .footerItem li a{
     text-decoration:none;
     color:white;
 }
 .footerItem li:hover
 {
- /* text-decoration:underline; */
  background-color: rgba(0, 128, 0, 0.44);
  padding:3px 3px;
  border-radius:10px;
- font-weight: bold;
+    -weight: bold;
  text-align: center;
  color:green;
 }
 .footerItem li i{
-  
-    margin-left:10px;
-    font-size:30px;
+     font-size:1rem;
 }
 
 .followLink
@@ -90,39 +81,32 @@ padding:20px 0px;
    margin-left:100px;
 }
 .followLink li{
+    margin:20px 0px 0px 0px;
     list-style-type: none;
-    color: black;
-}
-.followLink li {
     display: inline-block;
-    margin: 5px;
 }
 
 .followLink a {
     text-decoration: none;
-    font-size: 24px; /* Adjust size as needed */
+   font-size: 24px; /* Adjust size as needed */
     padding: 10px;
     border-radius: 50%;
     transition: all 0.3s ease-in-out;
 }
-
 .followLink a i {
     color: white; /* Default color */
 }
 
-/* Instagram */
 .followLink a[href*="instagram"] {
     background: linear-gradient(45deg, #fccc63, #bc1888, #e4405f);
     padding: 10px 12px;
 }
 
-/* LinkedIn */
 .followLink a[href*="linkedin"] {
     background-color: #0077b5;
     padding: 10px 12px;
 }
 
-/* Facebook */
 .followLink a[href*="facebook"] {
     background-color: #1877f2;
     padding: 10px 14px;
@@ -132,4 +116,110 @@ padding:20px 0px;
 .followLink a:hover {
     transform: scale(1.1);
     opacity: 0.8;
+}
+
+@media screen and (min-width:370px)
+{
+    .footerContainer{
+        display: grid;
+        gap:10px;
+        grid-template-columns: auto auto;
+    }
+   
+    .footerHeader
+    {   display: flex;
+        flex-direction: column;
+        line-height:0px;
+        width:100%;
+        padding:30px 0px 10px 0px;
+    }
+    .footerHeader button{
+
+        margin:20px 10px 20px 20px;
+    }
+     
+    .footerHeader span,button{
+        font-size:1rem;
+        font-weight: bold;
+     }
+    .followLink{
+        margin-left:32px;  
+       }
+    .followLink li 
+    { margin:0px 5px 0px 0px;
+    }
+    .footerItem
+    { margin-left:32px;
+    }
+  
+   
+    .footerContainer{
+        padding:10px;
+    }
+   
+
+   .footerItem li a{
+           font-size:1  rem;
+       }
+    
+}
+
+@media screen and (min-width:500px) {
+    .footerContainer{
+        display: grid;
+        grid-template-columns: auto auto auto;
+    }
+   
+   .followLink li a{
+    font-size: 10px;
+   }
+   .footerHeader{
+    display: block;
+     }
+    
+}
+
+@media screen and (min-width:900px)
+{
+    .footerHeader
+    {
+        padding:0px;
+    }
+    .footerContainer
+    {
+        display: flex;
+    }
+    .footerItem{
+        margin-left:50px;
+    }
+    .followLink li
+    {
+        display: block;
+        margin-bottom: 21px;
+    }
+    .followLink li a{
+        font-size:1rem;
+    }
+   
+
+}
+
+@media screen and (min-width:1300px)
+{
+
+    .footerHeader{
+        font-size:30px;
+        line-height: 90px;
+    }
+    .footerHeader span ,button
+    {
+        font-size: 30px;
+    }
+    .followLink li{
+        display: inline-block;
+     }
+     .followLink a{
+        font-size:24px;
+     }
+
 }

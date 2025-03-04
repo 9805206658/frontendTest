@@ -33,7 +33,7 @@ const SellerInfo=({name,address,contact})=>
        <h2 className={Style.infoTitle}>Seller Information</h2>
         <div className={Style.addressContactInfo} >
             {/* secondo child */}
-            <img src={logoImg}/>
+             <img src={logoImg}/>
              <span>Bikal shrestha</span>
         </div>
         <div className={Style.addressContactInfo}>
@@ -62,7 +62,8 @@ function Advertisement({image,brand,percentage})
     return(
     <>
     <div className={Style.advertisementWrapper}>
-        <div className={Style.imgcrousel} style={{border:"3px solid blue"}}>
+    {/* style={{border:"3px solid blue"} */}
+        <div className={Style.imgcrousel}>
          <img src={`/flashSale/${image}`} alt="Furry Presents" loading="lazy" />
          </div>  
          <CycleInfo/>
@@ -120,7 +121,7 @@ function Home()
      useEffect(()=>{
         const interval = setInterval(()=>{
             setImgCount((prevCount)=>
-                { if(prevCount == percentage.length-1)
+                {  if(prevCount == percentage.length-1)
                     { return 0;}
                 return prevCount+1
              });

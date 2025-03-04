@@ -5,6 +5,9 @@ import SignUp from './navItems/Signup';
 import Home from './navItems/Home';
 import Style from './App.module.css';
 import logoImg from './assets/logo.jpg';
+import { useState } from 'react';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 import { BrowserRouter as Router,Routes, Route,NavLink} from 'react-router-dom';
 const SearchBar=()=>{
     return (
@@ -16,42 +19,60 @@ const SearchBar=()=>{
 
 }
 function App() {
+
+    const[menuOpen,setMenuOpen] = useState(false);
+    const toggleMenu =()=>
+    { setMenuOpen((prev)=>!prev); }
     return (
        <>
         <Router>
             <div>
+            {/* here doing the overlay task */}
               <nav className={`${Style.navbarContainer}`}>
                     {/* Logo */}
-                    <div className={Style.imgContainer}>
-                      <img src={logoImg}/> 
-                      <span>KBS</span>
-                    </div>
-                    {/* border:"3px solid blue" */}
-                    <div style={{display:'flex',justifyContent:'space-between',width:'100%',padding:"0px 5px"}}>
+                { menuOpen &&<div className ={Style.overlay} onClick={toggleMenu}> </div>
+                }
+                        <div className={Style.hamburgerContainer}>
+                          <button data-type="false"  onClick={toggleMenu}>
+                             <i className={`fa-solid ${menuOpen?"fa-xmark":"fa-bars"}`}></i>
+                          </button>
+                       </div>
+
+                        <div className={Style.imgContainer}>
+                          <img src={logoImg}/> 
+                          <span>KBS</span>
+                       </div>
+                      {/* border:"3px solid blue" */}
+                   <div style={{display:'flex',justifyContent:'space-between',width:'100%',padding:"0px 5px"}}>
                     <ul>
                         <li>
                             <NavLink to="/" className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link}>
-                                Home
+                                <span>Home</span> 
+                                <i class="fa-solid fa-house" ></i>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink to="/productList" className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link}>
-                                Product List
+                               <span> Product List</span>
+                                <i class="fa-solid fa-rectangle-list"></i>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink to="/login" className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link}>
-                                Login
+                               <span> Login</span>
+                            <i class="fa-solid fa-right-to-bracket"></i>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink to="/signUp" className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link}>
-                                Sign Up
+                                <span>Sign Up</span>
+                                <i class="fa-solid fa-user-plus"></i>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink to="/addToCart" className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link}>
-                                Add to Cart
+                               <span> Add to Cart</span>
+                               <i class="fa-solid fa-cart-shopping"></i>
                             </NavLink>
                         </li>
                         
@@ -66,8 +87,11 @@ function App() {
                      <span>logout</span>
                     </div>
 
-                    </div>
+                    </div>    
+                 
                 </nav>
+
+                
                 <div>
                  <Routes>
                     <Route path="/" element={<Home/>} />
@@ -88,14 +112,3 @@ export default App;
 
 
 
-// function App()
-// {
-//     return( 
-//     <>
-//     {/* <h2>this is the hellow world page</h2> */}
-//     <h1 className="text-3xl font-bold underline">
-//       Hello world!
-//     </h1>
-//     </>)
-// }
-// export default App;
