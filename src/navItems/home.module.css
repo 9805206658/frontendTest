@@ -5,11 +5,9 @@
 }
 .infoWrapper
 {  
-    width:100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding:30px 15vw;
     background-image:linear-gradient(to Bottom Right,rgba(0, 0, 0, 0.981),rgba(2, 2, 15, 0.463));
 }
 .kbs_bannerTitle
@@ -177,6 +175,9 @@ img{
     text-shadow: 1px 1px 2px blue  ;
 }
 
+/* for overlay  */
+
+
 @media screen and (min-width:370px)
 {
     .infoWrapper{
@@ -242,7 +243,7 @@ img{
      .imgcrousel
      {
         width:50vw;
-        height:100vh;
+        height:60vh;
      
      }
    .kbs_bannerTitle
@@ -295,7 +296,8 @@ img{
 @media screen and (min-width:1300px)
 {
     .infoWrapper{
-        padding:30px 15.5vw;
+        padding:27px 15.5rem;
+        border:3px solid blue;
     }
     .kbs_bannerTitle{
         font-size: 1.5rem;

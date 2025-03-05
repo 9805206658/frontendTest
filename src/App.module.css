@@ -11,11 +11,11 @@
   display: flex;
   flex-direction:row;
   column-gap:30px; 
+  /* border:3px solid green; */
   padding: 1px 15px;
   position:sticky;
   top:0px;
   background:#fff;  
-  /* display: none; */
 }
 
 ul{
@@ -48,15 +48,12 @@ ul li,span{
 
 .navbarContainer ul li{
   padding:20px 10px;
-  /* border:3px solid red; */
 }
 
 li:hover
 {
-  /* background-color: rgba(128, 128, 128, 0.502); */
   border-radius: 0.125rem;
   font-weight: bold;
- /* line-height: 2rem; */
   background-color: #f7f8fb;
   font-weight: 500;
 
@@ -116,7 +113,7 @@ li:hover
   right:0;
   /* display: none; */
   bottom:0px;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.739);
   z-index:2;
   cursor: pointer;
 }
@@ -131,6 +128,35 @@ li:hover
 }
 
 
+/* here making the menu for overlay */
+.menuWrapper{
+
+  display: flex;
+  flex-direction: column;
+  row-gap:4vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 20px;
+  z-index: 2;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+
+}
+
+.menuWrapper a{
+  display: flex;
+  color:blue;
+  justify-content: space-between;
+  color:white;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+.menuWrapper i{
+  margin-left:3vw;
+  color:blue;
+}
 
 
 @media screen and (min-width:370px) {

@@ -1,4 +1,5 @@
 import Style from '../navItems/productList.module.css';
+import Style1 from '../navItems/home.module.css';
 import Product from '../product/product';
 import Footer from '../footer/footer';
 const SortItem=({name})=>

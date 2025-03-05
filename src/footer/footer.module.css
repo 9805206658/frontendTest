@@ -40,9 +40,8 @@ padding:20px 0px;
 }
 .footerContainer{
     margin-top:50px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display:grid;
+    
 }
 .footerItem
 {
@@ -53,7 +52,7 @@ padding:20px 0px;
 {
        font-weight:bold;
        font-size:23px;
-    margin-bottom:10px;
+    margin-bottom:0.5rem;
 }
 .footerItem li{
     margin-top:2px;
@@ -68,52 +67,54 @@ padding:20px 0px;
  background-color: rgba(0, 128, 0, 0.44);
  padding:3px 3px;
  border-radius:10px;
-    -weight: bold;
+ font-weight: bold;
  text-align: center;
  color:green;
 }
 .footerItem li i{
      font-size:1rem;
 }
-
-.followLink
+.footerItem li a img{
+    width:50px;
+    height:50px;
+    border-radius:10px;
+}
+.footerContainer >div:nth-child(5) div
 {
-   margin-left:100px;
-}
-.followLink li{
-    margin:20px 0px 0px 0px;
-    list-style-type: none;
-    display: inline-block;
+   display: grid;
+   grid-template-columns: auto auto auto auto;
+   column-gap: 0.1rem;
+
 }
 
-.followLink a {
-    text-decoration: none;
-   font-size: 24px; /* Adjust size as needed */
-    padding: 10px;
-    border-radius: 50%;
-    transition: all 0.3s ease-in-out;
-}
-.followLink a i {
-    color: white; /* Default color */
-}
 
-.followLink a[href*="instagram"] {
+.footerItem a[href*="instagram"] {
     background: linear-gradient(45deg, #fccc63, #bc1888, #e4405f);
     padding: 10px 12px;
 }
 
-.followLink a[href*="linkedin"] {
+.footerContainer > div:nth-child(6) a{
+    border-radius:10px;
+}
+.footerContainer > div:nth-child(6) div{
+    border-radius:10px;
+    display: grid;  
+    column-gap: 0.3rem;
+    grid-template-columns: auto auto auto ;
+  
+}
+.footerItem a[href*="linkedin"] {
     background-color: #0077b5;
     padding: 10px 12px;
 }
 
-.followLink a[href*="facebook"] {
+.footerItem a[href*="facebook"] {
     background-color: #1877f2;
     padding: 10px 14px;
 }
 
 /* Hover effect */
-.followLink a:hover {
+.footerItem a:hover {
     transform: scale(1.1);
     opacity: 0.8;
 }
@@ -138,16 +139,12 @@ padding:20px 0px;
         margin:20px 10px 20px 20px;
     }
      
-    .footerHeader span,button{
+    .footerHeader span,.footerContainer button{
         font-size:1rem;
         font-weight: bold;
      }
-    .followLink{
-        margin-left:32px;  
-       }
-    .followLink li 
-    { margin:0px 5px 0px 0px;
-    }
+    
+   
     .footerItem
     { margin-left:32px;
     }
@@ -161,6 +158,15 @@ padding:20px 0px;
    .footerItem li a{
            font-size:1  rem;
        }
+
+       .footerContainer >div:nth-child(5) div
+     {  grid-template-columns: auto auto auto ;
+             
+      }
+      .footerContainer > div:nth-child(6) div{
+        column-gap: 0rem;
+      
+    }
     
 }
 
@@ -170,12 +176,12 @@ padding:20px 0px;
         grid-template-columns: auto auto auto;
     }
    
-   .followLink li a{
-    font-size: 10px;
-   }
    .footerHeader{
     display: block;
      }
+     .footerContainer > div:nth-child(6) div{
+        column-gap: 0.3rem;
+    }
     
 }
 
@@ -187,39 +193,34 @@ padding:20px 0px;
     }
     .footerContainer
     {
-        display: flex;
+    grid-template-columns: auto auto auto auto;
     }
     .footerItem{
         margin-left:50px;
     }
-    .followLink li
-    {
-        display: block;
-        margin-bottom: 21px;
-    }
-    .followLink li a{
-        font-size:1rem;
-    }
+   
+    .footerContainer >div:nth-child(5) div
+     {  grid-template-columns: auto auto auto auto ;     
+      }
    
 
 }
 
 @media screen and (min-width:1300px)
 {
+    .footerContainer
+    {
+    grid-template-columns: auto auto auto auto auto auto;
+    }
 
     .footerHeader{
         font-size:30px;
         line-height: 90px;
     }
-    .footerHeader span ,button
+    .footerHeader span,.footerContainer button
     {
         font-size: 30px;
     }
-    .followLink li{
-        display: inline-block;
-     }
-     .followLink a{
-        font-size:24px;
-     }
+  
 
 }

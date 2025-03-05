@@ -1,0 +1,143 @@
+
+/* define the common col */
+.flexCol
+{
+    display:flex;
+    row-gap:0.2em;
+    /* border:3px solid blue; */
+    flex-direction: column;
+}
+.flexRow
+{
+    display: flex;
+    flex-direction: row;
+}
+.wholeSignupWrapper
+{
+    margin-top:20px;
+    row-gap:1rem;
+    align-items:center;
+    justify-content: center;
+    background-color:  #f5f5f5;
+    padding:2rem 0rem
+
+}
+
+.signupHeader
+{
+    margin:auto;
+    padding:10px 20px;
+    column-gap:3.5vw;
+}
+.signupHeader p{
+    font-size:1.5rem;
+}
+.signupHeader a{
+    font-size:1rem;
+}
+.signupContainer
+{ 
+     background-color: white;
+    box-shadow: 3px 3px 3px white;
+}
+.signupContainer form
+{
+    display: flex;
+    gap:1rem 10rem;
+    padding:2em 1em;
+
+}
+.signupContainer form >div:nth-child(1),form >div:nth-child(2){
+    row-gap:0.7vw;
+}
+
+.userWrapper{
+   padding:0.5rem 0.5rem;
+}
+.userContainer{
+    display: flex;
+    gap:1vw;
+}
+.genderContainer
+{
+    column-gap: 1vw;
+
+}
+
+input[type="date"],input[type="password"],input[type="tel"],input[type="text"]
+{ 
+    padding:0.75em 0.5em;
+    border:1px solid rgba(0, 0, 0, 0.372); 
+    border-radius:8px;
+
+}
+input{
+    font-size:0.9em;
+}
+
+.btnSignup
+{
+    background-color:rgba(255, 0, 0, 0.91);
+    text-align:center;
+    color:white;
+    font-weight: 900;
+    border:none;
+    font-size:1.2em;
+    border-radius:10px;
+    font-weight:300px;
+    padding:0.5rem 5rem;
+}
+.headTitleBold{
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+
+@media screen and (max-width:600px)
+{
+    .signupHeader{
+        column-gap: 1vw;
+        /* border:3px solid blue; */
+    }
+    .signupHeader p{
+        font-size:1rem;
+    }
+    .signupHeader a{
+        font-size:1rem;
+    }
+    
+   
+    .signupContainer form{
+        flex-direction:column;
+        padding:2em 3em;
+        
+    }
+    .signupContainer form >div:nth-child(1),form >div:nth-child(2){
+        column-gap:0.7vw;
+    }
+   
+    .flexCol{
+        row-gap: 0.4em;
+    }
+    input{
+        width:100%;
+        font-size:1.3em;
+    }
+    label
+    {
+        font-size:1.6em;
+    }
+    .headTitleBold{
+        font-size:1.5em;
+    }
+    .btnSignup{
+     background-color:orange;
+     font-size:1.8em;
+     width:100%;
+     padding:0.5rem 1rem;
+       
+    }
+}
+
+
+

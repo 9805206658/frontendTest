@@ -1,9 +1,15 @@
 import Style from '../footer/footer.module.css';
+import google from '../assets/companyLogo/google.png';
+import microsoft from '../assets/companyLogo/microsoft.png';
+import infosys from '../assets/companyLogo/infosys.png';
+import amazon from '../assets/companyLogo/amazon.png';
+import shopify from '../assets/companyLogo/shopify.png';
 
 const Footer =()=>
 { return (
-        <div>
-       <footer>
+    
+    <div>     
+       <footer> 
         <div className={Style.footerHeader}>
            <span className="companyName"> JOIN KINETIC BICYCLE SHOP AND GET  off </span> 
             <button><a href="signup.html">SIGN UP FOR FREE </a> <i class="fa-solid fa-arrow-right"></i></button>
@@ -37,15 +43,51 @@ const Footer =()=>
 
             <div className={Style.footerItem}>
                 <h6 className={Style.footerItemTitle} >COMPNAY INFO</h6>
+                   
                      <li><a href="#">About Us</a></li>
                      <li><a href="#">KBS stores</a></li>
                      <li><a href="#">KBS apps</a></li>
                      <li><a href="#">Entity Details</a></li>
                      <li><a href="#">Careers</a></li>
+                 
+            </div>
+            <div className={Style.footerItem}>
+                  <h6 className={Style.footerItemTitle} >PARTNER COMPANY</h6>
+                       <div>
+                             <li>
+                           
+                                    <a href="https://www.google.com/">
+                                      <img src={google} alt="Google"/>
+                                    </a>
+                             </li>
+                             <li>
+                                     <a href="https://www.microsoft.com/en-us/">
+
+                                        <img src={microsoft} alt="Microsoft"/>
+
+                                     </a>
+                             </li>
+                             <li>
+                                    <a href="https://www.infosys.com/">
+
+                                        <img src={infosys} alt="Infosys"/>
+                                     </a></li>
+                             <li>    <a href="https://www.amazon.com/">
+
+                                         <img src={amazon} alt="Amazon"/>
+                                     </a>
+                             </li>
+                             <li>   <a href="https://www.shopify.com/">
+
+                                        <img src={shopify} alt="Shopfiy"/>
+                                    </a>
+                            </li>
+                  </div>
             </div>
 
-            <div className={Style.followLink}>
+            <div className={`${Style.footerItem}`}>
                  <h6 className={`${Style.footerItemTitle}`} >Follow Us</h6>
+                 <div>
                     <li> 
                         <a href="https://www.instagram.com/?hl=en">
                           <i class="fa-brands fa-instagram"></i>
@@ -62,6 +104,7 @@ const Footer =()=>
                         </a>
                     </li>
              </div>
+         </div>
         </div>
         </footer>
     </div>

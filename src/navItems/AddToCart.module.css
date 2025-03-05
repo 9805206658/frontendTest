@@ -1,0 +1,143 @@
+.flexCol{
+    display:flex;
+    flex-direction:column;
+}
+.flexRow{
+    display:flex;
+    flex-direction: row;
+}
+.wholeCartWrapper{
+    display: grid;
+    justify-content: center;
+    padding:2rem 15.5rem;
+    column-gap: 1vw;
+    background-color:#f4f4f4;
+}
+.wholeCartWrapper  span{
+    font-size:1rem;
+
+}
+.cartHeader label ,.cartHeader button{
+    font-size:1rem;
+    
+}
+
+.cartWrapper{
+    /* border:3px solid blue; */
+    row-gap:2rem;
+    padding:0rem 0.2rem;
+   
+}
+.cartHeader{
+    padding:0.5rem 0.5rem;
+    /* border:3px solid red; */
+    background-color: white;
+    justify-content: space-between;
+}
+.cartHeader button{
+    border:none;
+    background-color: white;
+}
+.cartItemWrapper{
+
+    row-gap: 1rem;
+    
+
+}
+
+
+
+/* Styling the cartItem */
+.cartItemContainer{
+    /* border:3px solid green; */
+    align-items: center;
+    gap:2vw;
+    background-color: white;
+    padding:0.5vw 0.5vw; 
+}
+
+.cartItemContainer img{
+    /* border:3px solid blue; */
+    height:100px;
+    width:100px;
+}
+
+.discountWrapper{
+    row-gap:0.3vw;
+}
+.buttonWrapper{
+    column-gap:0.3vw;
+    align-items: center;
+    
+}
+.buttonWrapper button{
+    padding:0.5rem 0.7rem;
+}
+
+.orderSummaryWrapper
+{
+    row-gap:1rem;
+    padding:1rem 0.8rem;
+    background-color: white;
+    /* border:3px solid blue; */
+
+}
+
+.orderSummaryWrapper input[type="number"]
+{
+    padding:0.75rem 0.9rem;
+    border-radius:8px;
+}
+.orderSummaryWrapper input[type="number"]+button{
+    background-color: blue;
+}
+
+.orderSummaryWrapper > div
+{
+    justify-content: space-between;
+    column-gap:0.4rem;
+}
+.btn
+{
+    padding:0.75rem 0.9rem;
+    border-radius:8px;
+    background-color: #f57224;
+    color:white;
+    font-size:1.1rem;
+    border:none;
+    font-weight: bold;
+
+}
+
+@media screen and (min-width:370px)
+{
+    .wholeCartWrapper{
+       row-gap: 2vw;
+       grid-template-columns: auto ;
+       padding:0.5vw;
+       margin-bottom:5vw;
+    }
+     .cartItemContainer{
+       padding:0.5rem 1rem;
+    } 
+    .orderSummaryWrapper{
+        padding:1rem 1rem;
+    }
+
+}
+@media screen and (min-width:1000px)
+{
+    .wholeCartWrapper{
+        grid-template-columns: auto auto ;
+        padding:2rem 15.5rem;
+
+     }
+      .cartItemContainer{
+        padding:0.5rem 1rem;
+     } 
+     .orderSummaryWrapper{
+        padding:1rem 0.8rem;
+
+     }
+
+}
