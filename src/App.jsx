@@ -34,14 +34,14 @@ function App() {
                 <div className ={Style.overlay} onClick={toggleMenu}> 
                     <div className={Style.menuWrapper}>
                        
-                        <a href="http://localhost:5173/">Home <i class="fa-solid fa-house" ></i></a>
-                       <a href="http://localhost:5173/productList">ProductList<i class="fa-solid fa-rectangle-list"></i>
+                        <a href="https://frontendtes.netlify.app/">Home <i class="fa-solid fa-house" ></i></a>
+                       <a href="https://frontendtes.netlify.app/productList">ProductList<i class="fa-solid fa-rectangle-list"></i>
                        </a>
-                        <a href="http://localhost:5173/login">Login<i class="fa-solid fa-right-to-bracket"></i>
+                        <a href="https://frontendtes.netlify.app/login">Login<i class="fa-solid fa-right-to-bracket"></i>
                         </a>
-                        <a href="http://localhost:5173/signUp">Signup <i class="fa-solid fa-user-plus"></i>
+                        <a href="https://frontendtes.netlify.app/signUp">Signup <i class="fa-solid fa-user-plus"></i>
                         </a>
-                        <a href="http://localhost:5174/addToCart">add To cart                                <i class="fa-solid fa-cart-shopping"></i>
+                        <a href="https://frontendtes.netlify.app/addToCart">add To cart                                <i class="fa-solid fa-cart-shopping"></i>
                         </a>
                         <a>logout<i className="fa-solid fa-right-from-bracket" style={{ fontSize:"1.5rem", color: "blue" }}></i>
                         </a> 
