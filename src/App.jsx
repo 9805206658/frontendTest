@@ -6,7 +6,7 @@ import Home from './navItems/Home';
 import Style from './App.module.css';
 import logoImg from './assets/logo.jpg';
 import { useState } from 'react';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 import { BrowserRouter as Router,Routes, Route,NavLink} from 'react-router-dom';
 const SearchBar=()=>{
@@ -19,6 +19,9 @@ const SearchBar=()=>{
 
 }
 function App() {
+
+   
+
 
     const[menuOpen,setMenuOpen] = useState(false);
     const toggleMenu =()=>
@@ -33,16 +36,20 @@ function App() {
                 { menuOpen &&
                 <div className ={Style.overlay} onClick={toggleMenu}> 
                     <div className={Style.menuWrapper}>
-                       
-                        <a href="https://frontendtes.netlify.app/">Home <i class="fa-solid fa-house" ></i></a>
-                       <a href="https://frontendtes.netlify.app/productList">ProductList<i class="fa-solid fa-rectangle-list"></i>
-                       </a>
-                        <a href="https://frontendtes.netlify.app/login">Login<i class="fa-solid fa-right-to-bracket"></i>
-                        </a>
-                        <a href="https://frontendtes.netlify.app/signUp">Signup <i class="fa-solid fa-user-plus"></i>
-                        </a>
-                        <a href="https://frontendtes.netlify.app/addToCart">add To cart                                <i class="fa-solid fa-cart-shopping"></i>
-                        </a>
+                            <NavLink to="/productList" className={Style.link} >
+                               <span> Product List</span>
+                                <i class="fa-solid fa-rectangle-list"></i>
+                            </NavLink>
+                            <NavLink to="/login" className={Style.link} >
+                               <span> Login</span>
+                            </NavLink>
+                            <NavLink to="/signUp"  className={Style.link} >
+                                <span>Sign Up</span>
+                            </NavLink>
+                            <NavLink to="/addToCart"  className={Style.link}>
+                               <span> Add to Cart</span>
+                            </NavLink>
+
                         <a>logout<i className="fa-solid fa-right-from-bracket" style={{ fontSize:"1.5rem", color: "blue" }}></i>
                         </a> 
                      

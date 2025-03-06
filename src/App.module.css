@@ -111,7 +111,7 @@ li:hover
   top:0p;
   left:0;
   right:0;
-  /* display: none; */
+  display: none;
   bottom:0px;
   background-color: rgba(0, 0, 0, 0.739);
   z-index:2;
@@ -195,6 +195,9 @@ li:hover
   .followLink
   {
    border:3px solid blue;
+  }
+  .overlay{
+    display: block;
   }
  
   .imgContainer span{
