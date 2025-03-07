@@ -26,11 +26,8 @@ const OrderSummary=()=>
           <button className={`${Style.btn}`}>
             procedure to checkout
           </button>
-
-      
     </div>
-
-    </>
+  </>
 
   )
 }

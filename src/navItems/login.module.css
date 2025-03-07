@@ -1,0 +1,47 @@
+.flexCol{
+    display: flex;
+    flex-direction:column;
+}
+.flexRow{
+    display: flex;
+}
+
+.wholeWrapper{
+    opacity:1;
+    background-color: rgba(0, 0, 0, 0.641);
+}
+.loginWrapper{
+    /* background-color:blue; */
+    background-color: white;
+    padding:1rem 2rem;
+}
+.loginWrapper h1{
+    text-align: center;
+    padding:1rem 0rem;
+    /* color:green; */
+}
+
+.inputWrapper  label{
+    font-weight: bold;
+}
+
+.inputContainer{
+    /* border:3px solid blue; */
+    justify-content: space-between;
+    width:100%;
+    align-items: center;
+    border-radius:10px;
+    border:0.5px solid green;
+    padding:0.5rem 0.3rem;
+}
+.inputContainer input {
+    padding:0.2rem 1rem;
+    font-size:1rem;
+    width:100%;
+}
+.inputContainer input:focus {
+    
+    outline: none;
+    border:none;
+    /* border:3px solid  green; */
+}

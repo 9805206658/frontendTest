@@ -1,7 +1,7 @@
 import AddToCart from './navItems/AddToCart';
-import Login from './navItems/Login';
 import ProductList from './navItems/ProductList';
 import Signup from './navItems/Signup';
+import Login from './navItems/Login';
 import Home from './navItems/Home';
 import Style from './App.module.css';
 import logoImg from './assets/logo.jpg';
@@ -19,10 +19,13 @@ const SearchBar=()=>{
 
 }
 function App() {
-
-   
-
-
+    // here creating state 
+    const [isLoginOpen,setIsLoginOpen] = useState(true);
+    const loginHandler=()=>{
+        console.log(isLoginOpen);
+        alert("click");
+        setIsLoginOpen(prev=>!prev);
+    }
     const[menuOpen,setMenuOpen] = useState(false);
     const toggleMenu =()=>
     { setMenuOpen((prev)=>!prev); }
@@ -30,25 +33,22 @@ function App() {
        <>
         <Router>
             <div>
-            {/* here doing the overlay task */}
+            {isLoginOpen &&<Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} onClick={loginHandler}/>}
+              {/* here doing the overlay task */}
               <nav className={`${Style.navbarContainer}`}>
                     {/* Logo */}
                 { menuOpen &&
                 <div className ={Style.overlay} onClick={toggleMenu}> 
                     <div className={Style.menuWrapper}>
-                            <NavLink to="/productList" className={Style.link} >
-                               <span> Product List</span>
-                                <i class="fa-solid fa-rectangle-list"></i>
-                            </NavLink>
-                            <NavLink to="/login" className={Style.link} >
-                               <span> Login</span>
-                            </NavLink>
-                            <NavLink to="/signUp"  className={Style.link} >
-                                <span>Sign Up</span>
-                            </NavLink>
-                            <NavLink to="/addToCart"  className={Style.link}>
-                               <span> Add to Cart</span>
-                            </NavLink>
+                    <div className={Style.overlay} onClick={toggleMenu}>
+                            <div className={Style.menuWrapper}>
+                                <NavLink to="/" onClick={toggleMenu}>Home <i className="fa-solid fa-house"></i></NavLink>
+                                <NavLink to="/productList" onClick={toggleMenu}>Product List <i className="fa-solid fa-rectangle-list"></i></NavLink>
+                                <NavLink to="/login" onClick={toggleMenu}>Login <i className="fa-solid fa-right-to-bracket"></i></NavLink>
+                                <NavLink to="/signUp" onClick={toggleMenu}>Signup <i className="fa-solid fa-user-plus"></i></NavLink>
+                                <NavLink to="/addToCart" onClick={toggleMenu}>Add To Cart <i className="fa-solid fa-cart-shopping"></i></NavLink>
+                            </div>
+                        </div>
 
                         <a>logout<i className="fa-solid fa-right-from-bracket" style={{ fontSize:"1.5rem", color: "blue" }}></i>
                         </a> 
@@ -56,8 +56,7 @@ function App() {
                     </div>
 
                 </div>
-                }
-                        <div className={Style.hamburgerContainer}>
+                }      <div className={Style.hamburgerContainer}>
                           <button data-type="false"  onClick={toggleMenu}>
                              <i className={`fa-solid ${menuOpen?"fa-xmark":"fa-bars"}`}></i>
                           </button>
@@ -82,9 +81,8 @@ function App() {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/login" className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link}>
-                               <span> Login</span>
-                            </NavLink>
+                             
+                           <button className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link} onClick={loginHandler}> Login</button>
                         </li>
                         <li>
                             <NavLink to="/signUp" className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link}>
@@ -117,7 +115,6 @@ function App() {
                  <Routes>
                     <Route path="/" element={<Home/>} />
                     <Route path="/productList" element={<ProductList />} />
-                    <Route path="/login" element={<Login />} />
                     <Route path="/signUp" element={<Signup />} />
                     <Route path="/addToCart" element={<AddToCart />} />
                 </Routes>

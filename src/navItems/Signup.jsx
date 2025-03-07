@@ -1,12 +1,9 @@
 import React from 'react';
 import Footer from '../footer/footer';
-import Style from '../navItems/Signup.module.css'; // Assuming you have a CSS module
-import Style2 from "../navItems/AddToCart.module.css"
-
+import Style from '../navItems/Signup.module.css'; 
 function Signup() {
     return (
         <>
-      
         <div className={`${Style.flexCol} ${Style.wholeSignupWrapper}`}>
             <div className={`${Style.signupHeader} ${Style.flexRow}`}>
                 <h2>Create KBS Account</h2>

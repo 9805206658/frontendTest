@@ -12,7 +12,7 @@ const Product=()=>
           </p>
        <p className={Style.price}>price rs :399</p>
        <p className={Style.price}>rating</p>
-       <p>discont info</p>
+       <p>discount 50%</p>
      </div>
     </div>
  )

@@ -237,7 +237,7 @@ img{
      .advertisementWrapper
      {
          flex-direction: row;
-         margin-top: 4vw;
+         margin-top: 2vw;
       
      }
      .imgcrousel
@@ -296,13 +296,13 @@ img{
 @media screen and (min-width:1300px)
 {
     .infoWrapper{
-        padding:27px 15.5rem;
-        border:3px solid blue;
+        padding:27px 17.5rem;
+        /* border:3px solid blue; */
     }
     .kbs_bannerTitle{
         font-size: 1.5rem;
     }
-    .infoContainer1 p,a{
+    .infoContainer1 p,.infoContainer1 a{
         font-size:1rem;
     }
     .imgcrousel{
