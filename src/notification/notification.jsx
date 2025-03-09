@@ -22,4 +22,4 @@ else
 return notification.error(config);
 }
 
-export default createNotification
+export default createNotification;

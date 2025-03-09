@@ -51,7 +51,7 @@ const CartItem=()=>{
            <span>Rs 3000</span>
            <s>1000</s>
            <span>10%</span>
-           <i class="fa-solid fa-trash"></i>
+           <i className="fa-solid fa-trash"></i>
       </div>
       <div className={`${Style.buttonWrapper} ${Style.flexRow}`}>
            <button>+</button>
@@ -77,7 +77,7 @@ const AddToCart=()=>{
                   <input type="checkbox" id="selectAll"/>&nbsp;&nbsp;check all 
               </label>
               <button>
-                  <i class="fa-solid fa-trash"></i> &nbsp;&nbsp;delete
+                  <i className="fa-solid fa-trash"></i> &nbsp;&nbsp;delete
               </button>
            </div>
 

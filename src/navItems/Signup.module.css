@@ -26,10 +26,10 @@
 {
     margin:auto;
     padding:10px 20px;
-    column-gap:10.4vw;
+    column-gap:7vw;
 }
 .signupHeader h2{
-    font-size: 25px;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 .signupHeader p{
@@ -38,6 +38,13 @@
 .signupHeader a{
     font-size:1.5rem;
     color:blue;
+}
+.passwordWrapper div{
+    justify-content: space-between;
+    align-items: center; 
+    border-radius:10px;
+    padding:10px;
+    border:1px solid black;
 }
 .signupContainer
 { 
@@ -62,18 +69,20 @@
     display: flex;
     gap:1vw;
 }
-.genderContainer
+.genderWrapper
 {
     column-gap: 1vw;
-
 }
 
-.signupContainer [type="date"],.signupContainer input[type="password"],.signupContainer input[type="tel"],input[type="text"]
-{ 
-    padding:0.75em 2.5em;
-    border:1px solid rgba(0, 0, 0, 0.372); 
+.inputStyle{
+    padding:0.75rem 1.5rem;
     border-radius:8px;
+    border:1px solid black;
 
+}
+.passwordWrapper input{
+    border:none;
+    outline:none; 
 }
 
 .btnSignup
@@ -92,6 +101,11 @@
 .headTitleBold{
     font-weight: bold;
     font-size: 1.2em;
+}
+.error
+{
+    color:red;
+    font-size:15px;
 }
 
 

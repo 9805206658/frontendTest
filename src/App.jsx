@@ -6,7 +6,9 @@ import Home from './navItems/Home';
 import Style from './App.module.css';
 import logoImg from './assets/logo.jpg';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import {AddItems}  from './seller/addItems';
 
 import { BrowserRouter as Router,Routes, Route,NavLink} from 'react-router-dom';
 const SearchBar=()=>{
@@ -20,15 +22,15 @@ const SearchBar=()=>{
 }
 function App() {
     // here creating state 
-    const [isLoginOpen,setIsLoginOpen] = useState(true);
+    const [isLoginOpen,setIsLoginOpen] = useState(false);
     const loginHandler=()=>{
-        console.log(isLoginOpen);
-        alert("click");
         setIsLoginOpen(prev=>!prev);
     }
     const[menuOpen,setMenuOpen] = useState(false);
     const toggleMenu =()=>
     { setMenuOpen((prev)=>!prev); }
+    const lf = useSelector((state) => state.auth);
+        console.log(lf);
     return (
        <>
         <Router>
@@ -77,12 +79,12 @@ function App() {
                         <li>
                             <NavLink to="/productList" className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link}>
                                <span> Product List</span>
-                                <i class="fa-solid fa-rectangle-list"></i>
+                                <i className="fa-solid fa-rectangle-list"></i>
                             </NavLink>
                         </li>
                         <li>
                              
-                           <button className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link} onClick={loginHandler}> Login</button>
+                           <button className={Style.link} onClick={loginHandler}> Login</button>
                         </li>
                         <li>
                             <NavLink to="/signUp" className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link}>
@@ -101,7 +103,7 @@ function App() {
                     <SearchBar/>
                 
                     <div className={Style.logoutContainer}>
-                    {/* <i class="fa-solid fa-right-from-bracket"></i> */}
+                    {/* <i className="fa-solid fa-right-from-bracket"></i> */}
                      <i className="fa-solid fa-right-from-bracket" style={{ fontSize:"1.5rem", color: "blue" }}></i>
                      <span>logout</span>
                     </div>
@@ -117,6 +119,8 @@ function App() {
                     <Route path="/productList" element={<ProductList />} />
                     <Route path="/signUp" element={<Signup />} />
                     <Route path="/addToCart" element={<AddToCart />} />
+                    <Route path="/addItems" element={<AddItems/>} />
+
                 </Routes>
                 </div>
             </div>

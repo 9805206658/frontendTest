@@ -11,14 +11,12 @@
     background-color: rgba(0, 0, 0, 0.641);
 }
 .loginWrapper{
-    /* background-color:blue; */
     background-color: white;
     padding:1rem 2rem;
 }
 .loginWrapper h1{
     text-align: center;
     padding:1rem 0rem;
-    /* color:green; */
 }
 
 .inputWrapper  label{
@@ -26,7 +24,6 @@
 }
 
 .inputContainer{
-    /* border:3px solid blue; */
     justify-content: space-between;
     width:100%;
     align-items: center;
@@ -43,5 +40,4 @@
     
     outline: none;
     border:none;
-    /* border:3px solid  green; */
 }

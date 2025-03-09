@@ -12,7 +12,7 @@ const Footer =()=>
        <footer> 
         <div className={Style.footerHeader}>
            <span className="companyName"> JOIN KINETIC BICYCLE SHOP AND GET  off </span> 
-            <button><a href="signup.html">SIGN UP FOR FREE </a> <i class="fa-solid fa-arrow-right"></i></button>
+            <button><a href="signup.html">SIGN UP FOR FREE </a> <i className="fa-solid fa-arrow-right"></i></button>
         </div>
         <div  className={Style.footerContainer}>
             <div className={Style.footerItem}>
@@ -90,17 +90,17 @@ const Footer =()=>
                  <div>
                     <li> 
                         <a href="https://www.instagram.com/?hl=en">
-                          <i class="fa-brands fa-instagram"></i>
+                          <i className="fa-brands fa-instagram"></i>
                          </a>
                     </li>
                     <li>
                          <a href="https://www.linkedin.com/feed/">
-                          <i class="fa-brands fa-linkedin"> </i>  
+                          <i className="fa-brands fa-linkedin"> </i>  
                          </a>
                     </li>
                     <li> 
                          <a href="https://www.facebook.com/photo?fbid=1873035576181106&set=pcb.1873037882847542">
-                         <i class="fa-brands fa-facebook"></i>
+                         <i className="fa-brands fa-facebook"></i>
                         </a>
                     </li>
              </div>

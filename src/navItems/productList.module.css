@@ -14,16 +14,13 @@
 .sortWrapper
 {
     display: flex;
-    /* row-gap:10px; */
     flex-direction: column;
-
 }
 .sortCotainer
 {
     display: grid;
     gap:10px;
     padding:5px 5px;
-    /* border:3px solid yellow; */
     grid-template-columns: auto auto auto;
 }
 .sortBtn{
@@ -40,7 +37,6 @@
 
 .saleTitle
 {
-    /* padding:10px 10px; */
     padding:5px 5px;
     font-size:30px;
     color:#424242;

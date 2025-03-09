@@ -2,12 +2,15 @@ import Style from './home.module.css';
 import Product from '../product/product';
 import Footer from '../footer/footer';
 // here making the array for the image
-import {useState,useEffect} from "react";
+import {useState,useEffect,useSelector} from "react";
 import logoImg from '../assets/logo.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong,faLocationDot,faAddressBook } from '@fortawesome/free-solid-svg-icons';
 const CycleInfo=()=>
-{  return(
+{  
+  
+    
+    return(
         <>
         <div className={Style.cycleInfoWrapper}>
             <div>
@@ -112,7 +115,8 @@ const FlashSale=()=>
 
 function Home()
 {
-    // coursel image count
+  
+    
     const [imgCount,setImgCount] = useState(0);
     // here declaring the require array
     const image = ["blue.jpg","green.jpg","red.jpg","smooth.jpg"];
