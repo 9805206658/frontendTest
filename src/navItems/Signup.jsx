@@ -9,7 +9,6 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUser } from "../redux/userSlice";
 import { useSelector } from "react-redux";
-import Login from "./Login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const schema = yup.object().shape({
     userName:yup.string().min(3,"Full Name must be at least 3 character"),
@@ -46,16 +45,10 @@ function Signup() {
          catch(err)
         {  console.log(err.message); }
     }
-    useEffect(()=>{
-        if(credential.isLoginOpen==true)
-        { 
-            setIsLoginOpen((prev)=>!prev); }
-
-    },[credential.status])
    
     return (
         <>
-        {isLoginOpen && <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen}/>}
+        {/* {isLoginOpen && <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen}/>} */}
         <div className={`${Style.flexCol} ${Style.wholeSignupWrapper}`}>
             <div className={`${Style.signupHeader} ${Style.flexRow}`}>
                 <h2>Create KBS Account</h2>
@@ -87,9 +80,6 @@ function Signup() {
                                         <input type="email" className = {`${Style.inputStyle}`}  id="email" name="email" placeholder="Enter your your email" {...register("email")} />
                                         {errors["email"] && <span className={Style.error}> {errors["email"].message}</span>}       
                                 </div>
-
-
-
 
                                  <div className={` ${Style.flexCol}`}>
                                        <label htmlFor="password" className={Style.headTitleBold}>Password:</label>

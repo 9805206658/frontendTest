@@ -6,10 +6,9 @@ import Home from './navItems/Home';
 import Style from './App.module.css';
 import logoImg from './assets/logo.jpg';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import {AddItems}  from './seller/addItems';
-
+import { logout } from './redux/userSlice';
+import AddItems from './seller/addItems';
+import { useDispatch,useSelector } from 'react-redux';
 import { BrowserRouter as Router,Routes, Route,NavLink} from 'react-router-dom';
 const SearchBar=()=>{
     return (
@@ -22,20 +21,26 @@ const SearchBar=()=>{
 }
 function App() {
     // here creating state 
+    const dispatch = useDispatch();
     const [isLoginOpen,setIsLoginOpen] = useState(false);
-    const loginHandler=()=>{
+    const loginHandler=(e)=>{
+        e.preventDefault();
+        dispatch(logout);
         setIsLoginOpen(prev=>!prev);
+    }
+    const loginController =()=>{
+        setIsLoginOpen((prev)=>!prev);
     }
     const[menuOpen,setMenuOpen] = useState(false);
     const toggleMenu =()=>
     { setMenuOpen((prev)=>!prev); }
-    const lf = useSelector((state) => state.auth);
-        console.log(lf);
+    // const lf = useSelector((state) => state.auth);
+    //     console.log(lf);
     return (
        <>
         <Router>
             <div>
-            {isLoginOpen &&<Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} onClick={loginHandler}/>}
+            {isLoginOpen &&<Login isLoginOpen={isLoginOpen} loginController={loginController}    onClick={loginHandler}/>}
               {/* here doing the overlay task */}
               <nav className={`${Style.navbarContainer}`}>
                     {/* Logo */}
@@ -46,17 +51,12 @@ function App() {
                             <div className={Style.menuWrapper}>
                                 <NavLink to="/" onClick={toggleMenu}>Home <i className="fa-solid fa-house"></i></NavLink>
                                 <NavLink to="/productList" onClick={toggleMenu}>Product List <i className="fa-solid fa-rectangle-list"></i></NavLink>
-                                <NavLink to="/login" onClick={toggleMenu}>Login <i className="fa-solid fa-right-to-bracket"></i></NavLink>
+                                <button  onClick={loginHandler}> Login   <i className="fa-solid fa-right-to-bracket"></i> </button>
                                 <NavLink to="/signUp" onClick={toggleMenu}>Signup <i className="fa-solid fa-user-plus"></i></NavLink>
                                 <NavLink to="/addToCart" onClick={toggleMenu}>Add To Cart <i className="fa-solid fa-cart-shopping"></i></NavLink>
                             </div>
                         </div>
-
-                        <a>logout<i className="fa-solid fa-right-from-bracket" style={{ fontSize:"1.5rem", color: "blue" }}></i>
-                        </a> 
-                     
                     </div>
-
                 </div>
                 }      <div className={Style.hamburgerContainer}>
                           <button data-type="false"  onClick={toggleMenu}>
@@ -98,21 +98,20 @@ function App() {
                         </li>
                         
                     </ul>
-
                     {/* here defining the search item */}
                     <SearchBar/>
-                
-                    <div className={Style.logoutContainer}>
+                    <div className={Style.logoutContainer} onClick={(e)=>{
+                        e.preventDefault();
+                        dispatch(logout());
+                        alert("logout successfully");
+                        
+                    }}>
                     {/* <i className="fa-solid fa-right-from-bracket"></i> */}
                      <i className="fa-solid fa-right-from-bracket" style={{ fontSize:"1.5rem", color: "blue" }}></i>
                      <span>logout</span>
                     </div>
-
                     </div>    
-                 
-                </nav>
-
-                
+                  </nav> 
                 <div>
                  <Routes>
                     <Route path="/" element={<Home/>} />
@@ -120,7 +119,7 @@ function App() {
                     <Route path="/signUp" element={<Signup />} />
                     <Route path="/addToCart" element={<AddToCart />} />
                     <Route path="/addItems" element={<AddItems/>} />
-
+                    <Route path="/login" element={<Login  isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen}/>} />
                 </Routes>
                 </div>
             </div>

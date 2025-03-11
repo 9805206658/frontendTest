@@ -1,4 +1,5 @@
 //function for generating the notification
+import '@ant-design/v5-patch-for-react-19';
 import { notification } from "antd"
 import  "./notification.css"
 const createNotification=({isSuccess=true,description,placement="topRight",duration=3})=>

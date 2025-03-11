@@ -3,12 +3,11 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { loginUser } from "../redux/userSlice";
-// import { loginUser } from "../redux/userSlice";
+import { useSelector } from "react-redux";
 import Style from '../navItems/login.module.css';
 import Style1 from '../navItems/Signup.module.css';
 import {faEye, faL} from "@fortawesome/free-solid-svg-icons";
@@ -22,7 +21,7 @@ const schema = yup.object().shape({
         .required("Contact Number is required"),
     userType:yup.string().required("required type of the user")
 });
-export const CreateInputField = ({ type, name, labelName, placeHolder = "", register, errors, logo = "" }) => {
+export const CreateInputField = ({ type, name,value, labelName, placeHolder = "", register, errors, logo = "" ,extraField={},handleChange}  ) => {
     // here getting global state
     const [isPassword,setIsPassword]=useState(true);
     return (
@@ -33,59 +32,73 @@ export const CreateInputField = ({ type, name, labelName, placeHolder = "", regi
                     type={isPassword==false?"text":type}
                     id={name} 
                     placeholder={placeHolder} 
-                    {...register(name)}  
+                     {...(register?register(name):{})}
+                    {...extraField}
+                    value={value} 
+                    onChange={handleChange}
                 />
                 {logo && <FontAwesomeIcon icon={logo}  onClick={()=>
                     { setIsPassword((prev)=>!prev);}
                 } />}
             </div>
-            {errors[name] && <span className="text-red-800 text-sm mt-1">{errors[name].message}</span>}
+            {errors[name] && <span className="text-red-800 text-2xl mt-1">{errors[name].message}</span>}
         </div>
-    );
+    );  
 };
 
-
 // Login component
-const Login = ({ isLoginOpen, setIsLoginOpen}) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-    const credential= useSelector((state) => state.auth);
-    useEffect(()=>{
-        setIsLoginOpen(false);
-        if(credential.isLogin == true &&  credential.userType =='Buyer') 
-        {
-          
-            navigate("./");     
-        }
-        else
-        {
-             navigate("./addItems");
-        
-        }
-
-
-    },[credential.isLogin])
-   
+const Login = ({ isLoginOpen, loginController}) => {
+    const creadentail = useSelector((state)=>{return state.auth});
+    console.log(creadentail);
+    const dispatch = useDispatch();
+    const navigate = useNavigate(); 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
     const formSubmit = async (formData) => {
-        try {
-            console.log(formData);
-            dispatch(loginUser(formData));   
-         } 
-        catch (error)
-         {console.log(error.message); }
+           try {
+                console.log(formData);
+                dispatch(loginUser(formData));      
+             } 
+           catch (error)
+            { console.log(error.message); 
+            }
     };
+
+
+    useEffect(() => {
+        if (creadentail.isLogin) {
+            loginController();
+            navigate(creadentail.userType === 'Buyer' ? '/addItems' : '/');
+        }
+    }, [creadentail.isLogin, creadentail.userType, loginController, navigate]);
+
+   
+    
+    useEffect((e)=>{
+        // creadentail.isLogin == true && creadentail.userType == 'Buyer'
+     
+        if(true)
+        { // navigating to the homepage
+          {loginController}
+            navigate('./addItems');    
+        }
+        if(creadentail.isLogin == true && creadentail.userType == 'Seller'){
+           
+           { loginController }  
+            navigate('./');   
+        }
+
+    },[creadentail.isLogin, creadentail])
+   
    return (
         <>
             {isLoginOpen &&
             <div className={`fixed inset-0 flex items-center justify-center z-50 bg-gray-900  ${Style.wholeWrapper}`}>
-
-                    < div className={`g-white rounded-lg shadow-lg max-w-md w-full p-6 ${Style.loginWrapper}`} >
+             < div className={`g-white rounded-lg shadow-lg max-w-md w-full p-6 ${Style.loginWrapper}`} >
                         <button
                             className="text-gray-500 float-right text-2xl"
-                            onClick={() => setIsLoginOpen(false)}>
+                            onClick={() => loginController()}>
                             &times;
                         </button>
                         <h1 className="font-bold text-3xl mb-4">Login Here</h1>
@@ -98,6 +111,7 @@ const Login = ({ isLoginOpen, setIsLoginOpen}) => {
                                 register={register}
                                 errors={errors}
                                 logo=""
+                                extraField={""}
                             />
                             <CreateInputField
                                 type="password"
@@ -107,6 +121,7 @@ const Login = ({ isLoginOpen, setIsLoginOpen}) => {
                                 register={register}
                                 errors={errors}
                                  logo={faEye}
+                                 extraField={""}
                             />
 
                             <div className={`${Style1.userWrapper} ${Style1.flexCol}`}>
@@ -121,7 +136,6 @@ const Login = ({ isLoginOpen, setIsLoginOpen}) => {
                                      {errors["userType"] && <span className={Style1.error} > {errors["userType"].message}</span>}
                                   </div>
                              </div>
-
                             <button type="submit" className={Style1.btnSignup}>
                                 Login
                             </button>

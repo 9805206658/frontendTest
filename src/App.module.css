@@ -146,8 +146,12 @@ li:hover
   -ms-transform: translate(-50%,-50%);
 
 }
+.menuWrapper button{
+  /* background-color: white; */
+  opacity:1 ;
+}
 
-.menuWrapper a{
+.menuWrapper a,.menuWrapper button{
   display: flex;
   color:blue;
   width:40vw;

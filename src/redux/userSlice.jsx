@@ -6,7 +6,6 @@ const createAsyncThunkPost=(url)=>{
  return (createAsyncThunk(`auth/${url}`,async(userInfo,thunkAPI)=>{
   try{
     const res = await axiosClient.post(url,userInfo);
-    console.log("the response data is");
     console.log(res.data); 
     if(res.status == 200 && res.data.payload)
     {  localStorage.setItem("phone", res.data.payload.phone);
@@ -26,7 +25,6 @@ const createAsyncThunkPost=(url)=>{
         duration:3,
       });
       return res.data;
-
     }
   }
   catch(error)
@@ -50,27 +48,26 @@ const authSlice = createSlice({
   reducers:{
     logout: (state) => {
       state.isLogin = false;
-      state.isLoginOpen =  false;
       state.status = null;
       state.userName = null;
       state.userType = null;
       state.phone = null;
-
-      localStorage.clear();
+     localStorage.clear();
     }
   },
   
   extraReducers:(builder)=>{
 
-    builder.addCase(loginUser.rejected,(state,action)=>{
-     
+    builder.addCase(loginUser.rejected,(state)=>{
       state.isLogin = false;
       state.status = 'failed';
+
     });
     builder.addCase(loginUser.fulfilled,(state,action)=>{
-   
+      // state.userType = action.payload.paylod.userType;
+      console.log("the action is");
+      state.userType=action.payload.payload.userType;
       state.isLogin = true;
-
       state.status = "succeeded";
     });
     builder.addCase(loginUser.pending,(state)=>{

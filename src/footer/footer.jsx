@@ -4,15 +4,20 @@ import microsoft from '../assets/companyLogo/microsoft.png';
 import infosys from '../assets/companyLogo/infosys.png';
 import amazon from '../assets/companyLogo/amazon.png';
 import shopify from '../assets/companyLogo/shopify.png';
+import { useNavigate } from 'react-router-dom';
 
 const Footer =()=>
-{ return (
+{ 
+    const navigate = useNavigate();
+    return (
     
     <div>     
        <footer> 
         <div className={Style.footerHeader}>
            <span className="companyName"> JOIN KINETIC BICYCLE SHOP AND GET  off </span> 
-            <button><a href="signup.html">SIGN UP FOR FREE </a> <i className="fa-solid fa-arrow-right"></i></button>
+            <button><a onClick={
+                ()=>{(navigate("/signUp")); }
+                }>SIGN UP FOR FREE </a> <i className="fa-solid fa-arrow-right"></i></button>
         </div>
         <div  className={Style.footerContainer}>
             <div className={Style.footerItem}>

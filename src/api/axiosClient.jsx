@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseUrl = 'https://backendtest-ddis.onrender.com';
+const baseUrl = 'http://localhost:5000';
+// 'https://backendtest-ddis.onrender.com';
 const getToken = () => localStorage.getItem("Token");
 
 const axiosClient = axios.create({
@@ -12,8 +13,14 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
     (config) => {
-        console.log("enter request");
+         
         const token = getToken();
+        if(config.url="createProduct");
+        {  config.headers={
+                'Content-Type': 'multipart/form-data',  // Fix: Lowercase 'headers'
+            }
+        }
+
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;  // Fix: Added space in "Bearer "
         }
