@@ -3,7 +3,8 @@
    display:flex;
    flex-direction:row;
    justify-content: center;
-   width:100vw;
+   width:100%;
+
 }
 .wholeSortWrapper
 {
@@ -20,11 +21,12 @@
 {
     display: grid;
     gap:10px;
+    /* border:3px solid blue; */
     padding:5px 5px;
     grid-template-columns: auto auto auto;
 }
 .sortBtn{
-    padding: 10px 5px;
+    padding:  10px;
     background-color: rgba(128, 128, 128, 0.354);
     border: none;
     font-style: italic;
@@ -50,12 +52,16 @@
     padding:10px 22px;
     display: grid;
      gap:10px;
+     /* text-align: center; */
+     justify-content: center;
+     width:60%;
     grid-template-columns: auto auto auto auto ;
 
 }
 @media screen  and (min-width:370px){
     .productListWrapper{
         flex-direction: column;
+        align-items: center;
        
     }
     .wholeSortWrapper{

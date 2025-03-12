@@ -26,8 +26,17 @@
 {
     margin:auto;
     padding:10px 20px;
-    column-gap:2vw;
+    column-gap:5vw;
 }
+.signupHeader p button:hover{
+color: orange;
+outline:none;
+transition: all 0.5s linear ;
+padding:2px 3px ;
+box-shadow: 0px 0px 5px;
+
+
+} 
 .signupHeader h2{
     font-size: 1.5rem;
     font-weight: bold;
@@ -49,6 +58,8 @@
 .signupContainer
 { 
      background-color: white;
+     box-shadow:0px 0px 5px ;
+
     box-shadow: 3px 3px 3px white;
 }
 .signupContainer form

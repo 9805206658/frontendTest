@@ -76,14 +76,14 @@ const Login = ({ isLoginOpen, loginController}) => {
    
     
     useEffect((e)=>{
-        // creadentail.isLogin == true && creadentail.userType == 'Buyer'
+        //  creadentail.isLogin == true && creadentail.userType == 'Buyer'
      
-        if(true)
+        if(creadentail.isLogin == true && creadentail.userType == 'Seller')
         { // navigating to the homepage
           {loginController}
             navigate('./addItems');    
         }
-        if(creadentail.isLogin == true && creadentail.userType == 'Seller'){
+        if(creadentail.isLogin == true && creadentail.userType == 'Buyer'){
            
            { loginController }  
             navigate('./');   

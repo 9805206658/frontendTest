@@ -5,6 +5,8 @@ import axiosClient from "../api/axiosClient";
 const createAsyncThunkPost=(url)=>{
  return (createAsyncThunk(`auth/${url}`,async(userInfo,thunkAPI)=>{
   try{
+    console.log("the userInfo is");
+    console.log(userInfo);
     const res = await axiosClient.post(url,userInfo);
     console.log(res.data); 
     if(res.status == 200 && res.data.payload)
@@ -32,7 +34,7 @@ const createAsyncThunkPost=(url)=>{
     return thunkAPI.rejectWithValue(error.response?.data || "failed to fetch profile");
   }
 }));
-};
+};  
 export const loginUser  = createAsyncThunkPost("loginUser");
 export const createUser = createAsyncThunkPost("createUser");
 const initialState={

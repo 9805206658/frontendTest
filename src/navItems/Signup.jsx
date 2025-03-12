@@ -8,7 +8,9 @@ import {faEye} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUser } from "../redux/userSlice";
+import { logout } from "../redux/userSlice";
 import { useSelector } from "react-redux";
+import Login from "./Login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const schema = yup.object().shape({
     userName:yup.string().min(3,"Full Name must be at least 3 character"),
@@ -31,28 +33,37 @@ const schema = yup.object().shape({
 })
 
 function Signup() {
-    const credential = useSelector((state)=>state.auth);
-    const [isLoginOpen,setIsLoginOpen] = useState(false);
+    // const credential = useSelector((state)=>state.auth);
+    const [isLoginOpen,setIsLoginOpen] = useState();
     const dispatch = useDispatch(); 
     const[isPassword1,setIsPassword1]=useState(true);
     const[isPassword2,setIsPassword2]=useState(true);
-     const {register, handleSubmit, formState: { errors } } = useForm({resolver: yupResolver(schema) });
+   // write functionality for the login
+    
+    const loginController= ()=>{
+        setIsLoginOpen(prev=>!prev);
+
+    };
+
+ const {register, handleSubmit, formState: { errors } } = useForm({resolver: yupResolver(schema) });
     const formSubmit = async(formData)=>{
          try{
+            alert("enter");
             console.log(formData);
             dispatch(createUser(formData));
           }
          catch(err)
         {  console.log(err.message); }
     }
+
    
     return (
         <>
-        {/* {isLoginOpen && <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen}/>} */}
+        {isLoginOpen && <Login isLoginOpen={isLoginOpen} loginController={loginController} />}
         <div className={`${Style.flexCol} ${Style.wholeSignupWrapper}`}>
             <div className={`${Style.signupHeader} ${Style.flexRow}`}>
                 <h2>Create KBS Account</h2>
-                <p>Already a member? &nbsp;<button >Login here</button></p>
+                <p>Already a member? &nbsp;<button  onClick={()=>{setIsLoginOpen(true)}}>Login here</button></p>
             </div>
             <div className={Style.signupContainer}>
                        <form onSubmit={handleSubmit(formSubmit)}>

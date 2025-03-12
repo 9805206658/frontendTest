@@ -1,28 +1,30 @@
 import axios from "axios";
 
-const baseUrl = 'http://localhost:5000';
-// 'https://backendtest-ddis.onrender.com';
+const baseUrl ='http://localhost:5000';
+// 'https://backendtest-ddis.onrender.com'; 
+
+
 const getToken = () => localStorage.getItem("Token");
 
 const axiosClient = axios.create({
-    baseURL: baseUrl,  // Fix: Correct key name
+    baseURL: baseUrl,  
     headers: {
-        'Content-Type': 'application/json',  // Fix: Lowercase 'headers'
+        'Content-Type': 'application/json',  
     },
 });
 
 axiosClient.interceptors.request.use(
     (config) => {
-         
         const token = getToken();
-        if(config.url="createProduct");
+        console.log(config.url);
+        if(config.url == "createProduct")
         {  config.headers={
-                'Content-Type': 'multipart/form-data',  // Fix: Lowercase 'headers'
+                'Content-Type': 'multipart/form-data',  
             }
         }
 
         if (token) {
-            config.headers['Authorization'] = `Bearer ${token}`;  // Fix: Added space in "Bearer "
+            config.headers['Authorization'] = `Bearer ${token}`;  
         }
         console.log(config);
         return config;

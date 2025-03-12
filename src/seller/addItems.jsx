@@ -19,24 +19,37 @@ const schema=yup.object().shape({
       warrentyPeriod:yup.number(),
       quantity:yup.number(),
       imageName:yup.string(),
+      break:yup.string(),
 
 })
 const AddItems=()=>{
 
+        const [isUpload,setIsUpload]  = useState(false);
         const generateUniqueNumber = (min,max)=>{
                 return Math.floor(Math.random() * (max - min)) + min; 
         }
         const [uploadFile,setUploadFile] = useState([]);
          // here making the function that generate the unique character 
         const handleChange=(event)=>{
+                event.preventDefault();
+                if(isUpload==true)
+                {
+                        setIsUpload((prev)=>!prev);
+                        setUploadFile([]);
+
+
+                }  
+                else{
+                        setIsUpload((prev)=>!prev);
+                }      
                 const files = event.target.files;
-              //    rename the file 
               for(let i = 0; i < files.length; i++)
               {  // here spliting the files 
                   let fileList = files[i].name.split(".");
                   // 0 filename + unique character + file extension/
                   uploadFile.push(new File([files[i]],fileList[0]+generateUniqueNumber(100,1000)+"."+fileList[fileList.length-1]));
               }
+              console.log(uploadFile);
             
         }  
 
@@ -45,22 +58,21 @@ const AddItems=()=>{
           });
 
         const formSubmit=async (subData)=>{
-                console.log("the sub data is");
-                console.log(subData);
              let fileNames = [];
+             console.log("the upload files");
+             console.log(uploadFile);
+
              for(let j = 0; j<uploadFile.length; j++)
              {fileNames[j] = uploadFile[j].name;}
-             //   taking the name
+
+
+             console.log('the file names');
              subData.imageName = fileNames;
-             console.log("the subData is");
-             console.log(subData);
              const formData = new FormData();
-             uploadFile.forEach((file)=>{
+             uploadFile.forEach((file)=>{ 
                 formData.append('files',file);
              })
              formData.append('subData',JSON.stringify(subData));
-             console.log("the formData is ");
-             console.log(formData);
              try
              {
               const res = await axiosClient.post("createProduct",formData);
@@ -82,7 +94,7 @@ const AddItems=()=>{
                      register={register}
                      errors={errors}
                      logo=""
-                     value="67cd86ea2727842d79ee7341"
+                     value="67d10dd723acbb3a0df6ec36"
                      extraField={{disabled:true}}
              />
 
@@ -126,7 +138,15 @@ const AddItems=()=>{
                      extraField={""}
              />
 
-
+           <CreateInputField type="text"
+                     name="break"
+                     register={register}
+                     labelName="Break"
+                     placeHolder="Enter Break of the cycle"
+                     errors={errors}
+                     logo=""
+                     extraField={""}
+             />
 
               <CreateInputField
                    type="number"

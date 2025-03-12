@@ -34,8 +34,6 @@ function App() {
     const[menuOpen,setMenuOpen] = useState(false);
     const toggleMenu =()=>
     { setMenuOpen((prev)=>!prev); }
-    // const lf = useSelector((state) => state.auth);
-    //     console.log(lf);
     return (
        <>
         <Router>
