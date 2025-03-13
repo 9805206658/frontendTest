@@ -306,6 +306,7 @@ img{
     }
     .infoContainer1 p,.infoContainer1 a{
         font-size:1rem;
+        /* rem */
     }
     .imgcrousel{
         width:53vw;
