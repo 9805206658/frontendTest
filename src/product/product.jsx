@@ -1,8 +1,16 @@
 
+import { useNavigate } from 'react-router-dom';
 import cycle from '../assets/blue.jpg';
 import Style from '../product/product.module.css';
-const Product=({image,description,price,rating,discount})=>
+const Product=({image,description,price,rating,discount,id})=>
 {
+  const navigate = useNavigate();
+
+  const productClick=(event)=>{
+    const ele= event.currentTarget;
+    console.log(ele.getAttribute("data-value"));
+    navigate('/productDetail',{state:{id:ele.getAttribute("data-value")}});  
+  }
   const start =[];
   for(let i= 0; i<rating; i++)
   {
@@ -10,7 +18,7 @@ const Product=({image,description,price,rating,discount})=>
   }
 
  return(
-    <div className = {Style.productWrapper}>
+    <div className = {Style.productWrapper} onClick={productClick} data-value={id}>
         <img src={image}/>
       <div className = {Style.productContainer}>
           <p className={Style.description}>

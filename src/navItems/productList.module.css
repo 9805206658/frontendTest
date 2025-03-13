@@ -4,13 +4,17 @@
    flex-direction:row;
    justify-content: center;
    width:100%;
+   min-height:60vh;
+
 
 }
 .wholeSortWrapper
 {
     display: flex;
     flex-direction:column;
-    row-gap:30px;    
+    row-gap:30px;  
+    /* border:3px solid blue; */
+   
 }
 .sortWrapper
 {
@@ -79,6 +83,7 @@
 
     .productListWrapper{
         flex-direction: row;
+        align-items:start;
        
     }
     .productWrapper{

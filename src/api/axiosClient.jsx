@@ -1,8 +1,6 @@
 import axios from "axios";
 
-const baseUrl = 'https://backendtest-ddis.onrender.com'; 
-
-// http://localhost:5000
+const baseUrl = 'http://localhost:5000';
 // 'https://backendtest-ddis.onrender.com'; 
 
 
@@ -15,6 +13,7 @@ const axiosClient = axios.create({
     },
 });
 
+// configuration before sending request 
 axiosClient.interceptors.request.use(
     (config) => {
         const token = getToken();
@@ -36,6 +35,8 @@ axiosClient.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+// configuration after receiving response 
 
 axiosClient.interceptors.response.use(
     (response) => {

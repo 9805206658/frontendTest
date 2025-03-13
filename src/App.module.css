@@ -22,7 +22,7 @@ ul{
   column-gap: 1vw;
   align-items:center;
 }
-ul li,span{
+ul li, ul span{
   list-style-type:none;
   font-size:1.25rem;
   font-family: Tomato Grotesk, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif;

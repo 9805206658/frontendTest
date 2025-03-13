@@ -1,12 +1,12 @@
 import Style from '../navItems/productList.module.css';
-import Style1 from '../navItems/home.module.css';
 import Product from '../product/product';
 import Footer from '../footer/footer';
 import { useEffect ,useState} from 'react';
 import axiosClient from '../api/axiosClient';
-const url = 'https://backendtest-ddis.onrender.com/'; 
+const url =  import.meta.env.VITE_TEST_URL;
 
-// "http://localhost:5000/";
+// 'https://backendtest-ddis.onrender.com/'; 
+
 const SortItem=({name,sortBtnClick,dataValue})=>
 {   return(
        <>
@@ -20,6 +20,8 @@ const SortItem=({name,sortBtnClick,dataValue})=>
 
 function  ProductList()
 {
+  console.log(import.meta.env);
+  console.log(url);
   const [products,setProducts]=useState([]);
   const [brands,setBrands] = useState({isBrand:false, items:null});//is brands = true,brands 
   const [colors,setColors] = useState({isColor:false ,items:null});
@@ -28,7 +30,7 @@ function  ProductList()
   useEffect(()=>{
     const  readProduct=async()=>{
       try{
-       const res= await axiosClient.get("readProduct")
+       const res= await axiosClient.get("getProducts")
        if(res.status == 200)
        { setProducts(res.data.message);
        }
@@ -74,35 +76,37 @@ function  ProductList()
   };
 
 
-  const brand = [];
-  products.forEach((ele)=>{
-        if(!brand.includes(ele.brand))
-        {brand.push(ele.brand);}
-  })
-  // prices 
-  const price = [];
-  products.forEach((ele)=>{
-    if(!price.includes(ele.price))
-    {price.push(ele.price);}
-})
-  
-  // color
-  const color = [];
-  products.forEach((ele)=>{
-    if(!color.includes(ele.color))
-    {color.push(ele.color);}
-})
+   function  propertySelector(sortProperty)
+   {
+    const temp =[];
+    products.forEach((ele)=>{
+      if(!temp.includes(ele[sortProperty]))
+      {temp.push(ele[sortProperty]);}
+      });
+      return temp;
+   }
+   const brand = propertySelector("brand");
+   const price = propertySelector("price");
+   const color = propertySelector("color");
+
+   
 
 const renderProducts = (items) =>
   items?.map((obj) => (
-    <Product key={obj._id} image={`${url}${obj.imageName[0]}`} description={obj.description} price={obj.price} rating={3} />
+    <Product id={obj._id} key={obj._id} image={`${url}${obj.imageName[0]}`} description={obj.description} price={obj.price} rating={3} />
   ));
+ const reset=()=>{
+  setColors({ isColor: false, items: null });
+  setPrices({ isPrice: false, items: null });
+  setBrands({ isBrand: false, items: null });
+  setIsAllProduct(true);
 
+ }
   
 
     return(
         <>
-        <div className={Style.productListWrapper}>
+        <div className={Style.productListWrapper} onDoubleClick={reset}>
           <div className={Style.wholeSortWrapper}>
                 <div className ={Style.sortWrapper}>
                       <h2 className={Style.saleTitle}>Brand</h2>
@@ -110,7 +114,7 @@ const renderProducts = (items) =>
                       
                       {
                         brand.map((ele,index)=>{
-                          return <SortItem key={index} name={ele} dataValue={JSON.stringify({key:"brand",value:ele})} sortBtnClick = {sortBtnClick}/>
+                          return <SortItem   key={index} name={ele} dataValue={JSON.stringify({key:"brand",value:ele})} sortBtnClick = {sortBtnClick}/>
                         })
                       }
                </div>
@@ -132,7 +136,7 @@ const renderProducts = (items) =>
                   <h2 className={Style.saleTitle} > color </h2>
                   <div className={Style.sortCotainer}>
                        {  color.map((ele,index)=>{
-                          return <SortItem  key={index} name={ele} dataValue={JSON.stringify({key:"color",value:ele})}  sortBtnClick = {sortBtnClick}/>
+                          return <SortItem   key={index} name={ele} dataValue={JSON.stringify({key:"color",value:ele})}  sortBtnClick = {sortBtnClick}/>
                         })
                        }
 

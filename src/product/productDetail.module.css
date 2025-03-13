@@ -1,0 +1,157 @@
+.flexCol{
+    display:flex;
+    flex-direction: column;
+}
+.flexRow{
+    display: flex;
+    flex-direction: row;
+}
+.flexJustify{
+    justify-content: space-between;
+}
+
+.detailPage
+{
+    background-color: #eff0f5;
+        padding:2rem 0rem;
+        height:100vh;
+}
+.wholeDetailWrapper{
+    display:flex;
+    width:70%;
+    column-gap: 1%;
+    background-color: white;
+    /* border:3px solid blue; */
+    margin: auto;
+}
+.imageWrapper{
+    width:22.33vw;
+    height:100%;
+}
+.imageWrapper .imageContainer{
+
+    border-radius:10px;
+    padding:1rem 2rem;
+}
+
+.imageContainer img{
+    width:100%;
+    height:300px;
+
+}
+
+.imageBtnWrapper{
+    display: flex;
+    padding:1rem 1rem;
+    column-gap:0.5rem;
+    border:3px solid red;
+
+}
+
+.imageBtnWrapper  div img{
+    height:60px;
+    width:60px;
+   
+}
+.imageBtnWrapper div{
+    border:1px solid black;   
+    border-radius:10px;
+    padding:0.2rem 0.2rem;
+}
+.descriptionWrapper{
+    width:23.33vw;
+    display: flex;
+    flex-direction: column;
+    row-gap:0.5vw;
+}
+ .descriptionWrapper h1{
+    text-align: center;
+    font-weight:bold;
+    font-size:2rem;
+    padding:0.3rem 1rem
+ }
+ .descriptionWrapper div{
+    padding:1rem ;
+ }
+ 
+ .descriptionWrapper .rating span{
+    display: block;
+ }
+ .descriptionWrapper .discount span{
+    color:red;
+    font-size:25px;
+    display: block;
+    font-weight:600;
+ }
+ 
+ .descriptionWrapper .quantity {
+    display: flex;
+    column-gap: 10px;
+}
+.descriptionWrapper .quantity button{
+    padding:0rem 1rem;
+    background-color: #f4f4f4;
+    font-weight: bold;
+} 
+.buySellContainer{
+    display: flex;
+    column-gap: 10px;
+}
+ 
+.buySellContainer button{
+    /* border:3px solid #0000ff; */
+    padding:0.5rem 0.5rem;
+    border-radius:10px;
+    color:white;
+    font-weight:bold;
+    font-size:1rem;
+    width:100%;
+}
+.buySellContainer button:first-child{
+    background-color: rgba(0, 0, 255, 0.451);
+
+}
+.buySellContainer button:last-child{
+    background-color: #f57224;
+}
+ 
+
+/* here deliver location are design */
+.deliverWrapper{
+    width:23.33vw;
+    padding:0.5rem 0.3rem;
+    display: flex;
+    /* box-shadow:0px 0px 3px; */
+    background-color: #fafafafe;
+    row-gap: 1.5vw;
+}
+
+.additionalTitleColor{
+    color: #757575;
+}
+.additionalItem{
+    column-gap: 1vw;
+    padding:0.2rem 0.5rem;
+}
+.linkStyle{
+    font-weight:bold;
+    color:blue;
+}
+
+
+
+.sellerInfo{
+    column-gap:0.5vw;
+    justify-content:center;
+    padding:0.2rem 0rem;
+}
+.ratio{
+    background-color:rgba(0, 0, 0, 0.363);
+    text-align:center;
+}
+
+.vistStore{
+    display: block;
+    width:100%;
+    text-align: center;
+}

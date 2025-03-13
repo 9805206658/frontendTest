@@ -9,6 +9,7 @@ import { useState } from "react";
 import axiosClient from "../api/axiosClient";
 // here defining sche
 const schema=yup.object().shape({
+     name:yup.string().required("name is required"),
       sellerId:yup.string(),
       brand:yup.string().required("brand name is required"),
       weight:yup.number().required("weight is required"),
@@ -97,6 +98,18 @@ const AddItems=()=>{
                      value="67d10dd723acbb3a0df6ec36"
                      extraField={{disabled:true}}
              />
+
+            <CreateInputField type="text"
+                     name="name"
+                     labelName="Cycle Name"
+                     register={register}
+                     errors={errors}
+                     logo=""
+                     value=""
+                    
+             />
+
+
 
               <CreateInputField type="text"
                      name="brand"
