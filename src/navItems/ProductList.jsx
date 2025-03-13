@@ -4,7 +4,9 @@ import Product from '../product/product';
 import Footer from '../footer/footer';
 import { useEffect ,useState} from 'react';
 import axiosClient from '../api/axiosClient';
-const url = "http://localhost:5000/";
+const url = 'https://backendtest-ddis.onrender.com/'; 
+
+// "http://localhost:5000/";
 const SortItem=({name,sortBtnClick,dataValue})=>
 {   return(
        <>
