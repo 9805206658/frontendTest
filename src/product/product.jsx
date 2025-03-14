@@ -9,7 +9,7 @@ const Product=({image,description,price,rating,discount,id})=>
   const productClick=(event)=>{
     const ele= event.currentTarget;
     console.log(ele.getAttribute("data-value"));
-    navigate('/productDetail',{state:{id:ele.getAttribute("data-value")}});  
+    navigate('/productDetail',{state:{productId:id,initialImg:image}});  
   }
   const start =[];
   for(let i= 0; i<rating; i++)
@@ -19,7 +19,7 @@ const Product=({image,description,price,rating,discount,id})=>
 
  return(
     <div className = {Style.productWrapper} onClick={productClick} data-value={id}>
-        <img src={image}/>
+        <img src={`${import.meta.env.VITE_TEST_URL}${image}`}/>
       <div className = {Style.productContainer}>
           <p className={Style.description}>
             {description}

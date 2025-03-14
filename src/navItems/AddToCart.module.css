@@ -121,6 +121,32 @@
 
 }
 
+/* here design empty cart condition */
+.noCartWrapper{
+ display: flex;
+ height:50vh;
+ color:#f55f24;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+
+}
+.noCartWrapper p{
+   
+    font-size:1.2rem;
+}
+.noCartWrapper p+button{
+    border:1px solid orange;
+    border-radius: 10px;
+    padding:1.5rem 3rem;
+}
+.noCartWrapper p+button:hover{
+    color:blue;
+    transition: all 1s linear ;
+    background-color: rgba(128, 128, 128, 0.341);
+}
+
+
 @media screen and (min-width:370px)
 {
     .wholeCartWrapper{
@@ -137,6 +163,9 @@
     }
 
 }
+
+
+
 @media screen and (min-width:1000px)
 {
     .wholeCartWrapper{

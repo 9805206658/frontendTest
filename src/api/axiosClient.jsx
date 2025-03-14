@@ -17,7 +17,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
     (config) => {
         const token = getToken();
-        console.log(config.url);
+        // console.log(config.url);
         if(config.url == "createProduct")
         {  config.headers={
                 'Content-Type': 'multipart/form-data',  
@@ -27,7 +27,7 @@ axiosClient.interceptors.request.use(
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;  
         }
-        console.log(config);
+        // console.log(config);
         return config;
     },
     (error) => {

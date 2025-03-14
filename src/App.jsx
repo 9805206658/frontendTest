@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { logout } from './redux/userSlice';
 import AddItems from './seller/addItems';
 import ProductDetail from './product/productDetail';
+import PaymentDetail from './payment/payment';
 import { useDispatch,useSelector } from 'react-redux';
 import { BrowserRouter as Router,Routes, Route,NavLink} from 'react-router-dom';
 const SearchBar=()=>{
@@ -120,6 +121,7 @@ function App() {
                     <Route path="/addItems" element={<AddItems/>} />
                     <Route path="/productDetail" element ={<ProductDetail/>}/>
                     <Route path="/login" element={<Login  isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen}/>} />
+                    <Route path="/paymentDetail" element={<PaymentDetail/>} />
                 </Routes>
                 </div>
             </div>

@@ -1,28 +1,29 @@
 import Style from "./productDetail.module.css";
-import { useState,useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useState,useEffect,useRef } from "react";
+import { useLocation, } from "react-router-dom";
 import axiosClient from '../api/axiosClient';
 import Footer from '../footer/footer';
-
+import createNotification from "../notification/notification";
 const url = import.meta.env.VITE_TEST_URL;
-const ImageDisplayer=({images})=>{
-    // console.log(images);
-    const [imageState,setImageState] = useState();
+const ImageDisplayer=({images,initialImg})=>{
+  // console.log(images.length);
+  console.log(initialImg);
+  const [imageState,setImageState] = useState(initialImg);
+  const imageClick=(event)=>{
+    console.log(event.currentTarget.getAttribute("data-url"));
+     setImageState(event.currentTarget.getAttribute("data-url"))
+  }
+
     return(
     <div className={Style.imageWrapper}>
             <div className = {Style.imageContainer}>
-               {images&&<img src={`${url}${images[0]}`}/>}
+               {images&&<img src={`${url}${imageState}`}/>}
                </div>
           <div className={Style.imageBtnWrapper}>
-            {
-              images?.map((image,index)=>{
-                return(<div ><img key={index} src={`${url}${image}`}/></div>)
-            })
-        
-            }
-            <button>
-
-            </button>
+            {  images?.map((image,index)=>{
+                return(<div onClick={imageClick} data-url={image} key={index} ><img src={`${url}${image}`}/></div>)
+             })
+           }
           </div>
           
         </div>)
@@ -30,38 +31,111 @@ const ImageDisplayer=({images})=>{
 }
 
 
-const Discription =({product})=>
+const Discription =({product,initialImg,setIsAddCard})=>
 {
-    console.log(product);
-    let start = 3;
-   const {name,brand,color,description,frameMaterial,price,quantity,warrentyPeriod,weight}=product;
+   const [countQuantity ,setCountQuantity]= useState(1);
+ 
+   const {name,brand,color,description,frameMaterial,price,quantity,warrentyPeriod,weight,_id,images,status}=product;
+  
+   const  incDec=(event)=>{
+    console.log(event.currentTarget.getAttribute("data-value"));
+    if(event.currentTarget.getAttribute("data-value") == '+')
+    {
+      setCountQuantity((prev)=>{
+        if(prev < quantity )
+        {return prev+1;}
+        return prev;  
+      });
+    }
+    else{ 
+      setCountQuantity((prev)=>{
+        if(prev > 1)
+        {return prev-1 }
+        return prev;
+      });
+        
+    }
+   }
+
+   const addToCartHandler=async(event)=>{
+    if(status == 'inactive')
+    {  
+      setIsAddCard(prev=>!prev);
+              createNotification({
+                isSuccess:true,
+                description:"product is reserved",
+                placement:"topRight",
+                duration:2
+               })
+      return ;
+    }
+    console.log("the count quantity is"+countQuantity);
+      event.preventDefault();
+       const bId = localStorage.getItem('id');
+      const cart={
+        name:name?name:"KBS Cycle",
+        buyerId:bId,
+        productId:_id,
+        description:description,
+        quantity:countQuantity,
+        price:price,
+        brand:brand,
+        totalPrice:0,
+        finalQuantity:(quantity-countQuantity),
+        image:initialImg
+      }
+      try{
+          const res= await axiosClient.post('createCart',cart);
+            if(res.status == 200)
+             { 
+              setIsAddCard(prev=>!prev);
+              setCountQuantity(1);
+              createNotification({
+                isSuccess:true,
+                description:res.data.message,
+                placement:"topRight",
+                duration:3
+               })
+               
+            }
+      }
+      catch(error) 
+      {console.log(error);}
+   }
+
+
     return(
         <>
          <div className={Style.descriptionWrapper}>
              <h1>{name?name:"KBS Cycle"}</h1>
           <div className={Style.rating} >
-            <span>rating</span>
-           <i className="fa-solid fa-star"></i>
+            <span>{description}</span>
+           {/* <i className="fa-solid fa-star"></i>
            <i  className="fa-solid fa-star"></i>
-           <i className="fa-solid fa-star"></i>
+           <i className="fa-solid fa-star"></i> */}
           </div>
           <div className={Style.discount}>
-            <span>Rs 9000</span> 
+            <span>{price}</span> 
              <s>Rs 12000 -25% </s>
+             <span>color: &nbsp;{color}</span>
           </div>
-          <div>
-            color :{color}
+          <div className={Style.additionalInfo}>
+            {/* <span>color :{color} &nbsp; &nbsp;</span> */}
+            <span>Frame Material:&nbsp;{frameMaterial}</span>
+            <span>brand :&nbsp;{brand}</span>
+            <span>Weight: &nbsp;{weight}</span>
+            
           </div>
           <div className={Style.quantity}>
              <span>quantity &nbsp;</span>
-             <button>+</button>
-             <div>13</div>
-             <button>-</button>
+             <button onClick={incDec} data-value="+">+</button>
+             <span id="quantity">{countQuantity}</span>
+             <button onClick={incDec}>-</button>
 
           </div>
           <div className={Style.buySellContainer}>
-            <button> Buy Now </button>
-            <button> Add To Cart </button>
+            <button > Buy Now </button>
+            <button onClick={addToCartHandler}> Add To Cart </button>
           </div>
           </div>
         </>
@@ -159,10 +233,13 @@ const DeliverInformation=()=>{
 
 }
 
+
 const ProductDetail =()=>
 {
     const location = useLocation();
-    const productId = location.state.id;
+    const [isAddCard,setIsAddCard] = useState(false);
+    const {productId,initialImg} = location.state;
+    console.log(initialImg);
     const [productInfo,setProductInfo] = useState();
     useEffect(()=>{
         // get product detail from server
@@ -176,13 +253,13 @@ const ProductDetail =()=>
             { console.log(err);}
          }
          getSingleProduct();
-    },[]);
-   
+    },[isAddCard]);
     return (
     <div className={Style.detailPage} >
-     <div className={Style.wholeDetailWrapper}>
-        <ImageDisplayer images={productInfo?.imageName}/>
-         <Discription product={productInfo !=null && productInfo}/>
+     <div className={Style.wholeDetailWrapper} >
+      
+        <ImageDisplayer images={productInfo?.imageName} initialImg={initialImg}/>
+         <Discription product={productInfo !=null && productInfo}  initialImg={initialImg} setIsAddCard={setIsAddCard} />
          <DeliverInformation/>      
     </div>
     <Footer/>
