@@ -26,7 +26,7 @@ function App() {
     const dispatch = useDispatch();
     const [isLoginOpen,setIsLoginOpen] = useState(false);
     const loginHandler=(e)=>{
-        e.preventDefault();
+        // e.preventDefault();
         dispatch(logout);
         setIsLoginOpen(prev=>!prev);
     }

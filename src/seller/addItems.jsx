@@ -7,6 +7,7 @@ import Footer from "../footer/footer";
 import Style1 from "../navItems/Signup.module.css";
 import { useState } from "react";
 import axiosClient from "../api/axiosClient";
+import createNotification from "../notification/notification";
 // here defining sche
 const schema=yup.object().shape({
      name:yup.string().required("name is required"),
@@ -37,8 +38,6 @@ const AddItems=()=>{
                 {
                         setIsUpload((prev)=>!prev);
                         setUploadFile([]);
-
-
                 }  
                 else{
                         setIsUpload((prev)=>!prev);
@@ -77,10 +76,27 @@ const AddItems=()=>{
              try
              {
               const res = await axiosClient.post("createProduct",formData);
-              console.log(res);
+               if(res.status==200)
+               {
+                createNotification({
+                        isSuccess: true,
+                        description: res.data?.message || "sucessfully created product",
+                        placement: "topRight",
+                        duration: 2,
+                      });
+                
+               }
              }
              catch(err)
-             {  console.log("error :"+err);  }
+             {  
+                createNotification({
+                        isSuccess: false,
+                        description: err.data?.error || "product creation failed",
+                        placement: "topRight",
+                        duration: 2,
+                      });
+                console.log("error :"+err  ); 
+         }
                
       }
    return (<>
@@ -95,7 +111,7 @@ const AddItems=()=>{
                      register={register}
                      errors={errors}
                      logo=""
-                     value="67d10dd723acbb3a0df6ec36"
+                     value={localStorage.getItem("id")}
                      extraField={{disabled:true}}
              />
 
@@ -103,13 +119,12 @@ const AddItems=()=>{
                      name="name"
                      labelName="Cycle Name"
                      register={register}
+                     placeHolder="Enter the nae of the Cycle"
                      errors={errors}
                      logo=""
-                     value=""
+              
                     
              />
-
-
 
               <CreateInputField type="text"
                      name="brand"

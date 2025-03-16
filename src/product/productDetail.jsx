@@ -4,7 +4,9 @@ import { useLocation, } from "react-router-dom";
 import axiosClient from '../api/axiosClient';
 import Footer from '../footer/footer';
 import createNotification from "../notification/notification";
+import { getSingleProduct } from "../api/productService";
 const url = import.meta.env.VITE_TEST_URL;
+import { inDec } from "../api/productService";
 const ImageDisplayer=({images,initialImg})=>{
   // console.log(images.length);
   console.log(initialImg);
@@ -37,27 +39,9 @@ const Discription =({product,initialImg,setIsAddCard})=>
  
    const {name,brand,color,description,frameMaterial,price,quantity,warrentyPeriod,weight,_id,images,status}=product;
   
-   const  incDec=(event)=>{
-    console.log(event.currentTarget.getAttribute("data-value"));
-    if(event.currentTarget.getAttribute("data-value") == '+')
-    {
-      setCountQuantity((prev)=>{
-        if(prev < quantity )
-        {return prev+1;}
-        return prev;  
-      });
-    }
-    else{ 
-      setCountQuantity((prev)=>{
-        if(prev > 1)
-        {return prev-1 }
-        return prev;
-      });
-        
-    }
-   }
-
+ 
    const addToCartHandler=async(event)=>{
+    try{
     if(status == 'inactive')
     {  
       setIsAddCard(prev=>!prev);
@@ -84,8 +68,10 @@ const Discription =({product,initialImg,setIsAddCard})=>
         finalQuantity:(quantity-countQuantity),
         image:initialImg
       }
-      try{
+      
           const res= await axiosClient.post('createCart',cart);
+          
+         
             if(res.status == 200)
              { 
               setIsAddCard(prev=>!prev);
@@ -99,11 +85,21 @@ const Discription =({product,initialImg,setIsAddCard})=>
                
             }
       }
-      catch(error) 
-      {console.log(error);}
+      catch(err)
+      {
+        console.log(err);
+        
+          // console.error("Error:", res); // Debugging log
+          createNotification({
+            isSuccess: false,
+            description: err.data?.error || "An unexpected error occurred",
+            placement: "topRight",
+            duration: 2,
+          });
+        
+       
+      }
    }
-
-
     return(
         <>
          <div className={Style.descriptionWrapper}>
@@ -128,9 +124,15 @@ const Discription =({product,initialImg,setIsAddCard})=>
           </div>
           <div className={Style.quantity}>
              <span>quantity &nbsp;</span>
-             <button onClick={incDec} data-value="+">+</button>
+             <button onClick={(event)=>{
+              inDec(event,setCountQuantity,quantity);
+
+             }} data-value="+">+</button>
              <span id="quantity">{countQuantity}</span>
-             <button onClick={incDec}>-</button>
+             <button  onClick={(event)=>{
+              inDec(event,setCountQuantity,quantity);
+
+             }}>-</button>
 
           </div>
           <div className={Style.buySellContainer}>
@@ -173,23 +175,23 @@ const DeliverInformation=()=>{
              <div >
             <p  className={`${Style.additionalTitleColor}`}>Service</p>
             <div className={`${Style.additionalItem} ${Style.flexRow}`} >
-                <i class="fa-regular fa-hand-lizard"></i>
+                <i className="fa-regular fa-hand-lizard"></i>
                    <p className={`${Style.flexCol}`} >
-                    <span class={` ${Style.linkStyle}`} >100% Authentic from Trusted Brand</span>
+                    <span className={` ${Style.linkStyle}`} >100% Authentic from Trusted Brand</span>
                   
                      <span>or Get 2x Your Money Back	</span> 
                    </p>
              </div>
 
              <div className={`${Style.additionalItem} ${Style.flexRow}`}>
-                <i class="fa-regular fa-hand-lizard"></i>
+                <i className="fa-regular fa-hand-lizard"></i>
                    <div className={`${Style.flexCol} `}>
-                     <span   class={` ${Style.linkStyle}`} > 14 days free & easy return</span>
+                     <span   className={` ${Style.linkStyle}`} > 14 days free & easy return</span>
                       <span>Change of mind is not applicable</span>	
                    </div>
              </div> 
               <div className={`${Style.additionalItem} ${Style.flexRow}`}>
-                <i class="fa-regular fa-hand-lizard"></i>
+                <i className="fa-regular fa-hand-lizard"></i>
                    <p> Warranty not available</p>
              </div>
 
@@ -241,18 +243,14 @@ const ProductDetail =()=>
     const {productId,initialImg} = location.state;
     console.log(initialImg);
     const [productInfo,setProductInfo] = useState();
+    
+     
+   
     useEffect(()=>{
-        // get product detail from server
-        const getSingleProduct=async()=>{
-            try{
-                const res = await axiosClient(`getSingleProduct/${productId}`);
-                console.log(res);
-                setProductInfo(res.data.message);
-            }
-            catch(err)
-            { console.log(err);}
-         }
-         getSingleProduct();
+        const getInfo=async()=>{
+          setProductInfo(await getSingleProduct(productId));
+        }
+        getInfo();
     },[isAddCard]);
     return (
     <div className={Style.detailPage} >

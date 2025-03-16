@@ -6,10 +6,10 @@ import {useState,useEffect,useSelector} from "react";
 import logoImg from '../assets/logo.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong,faLocationDot,faAddressBook } from '@fortawesome/free-solid-svg-icons';
+import axiosClient from '../api/axiosClient';
+import { useNavigate } from 'react-router-dom';
 const CycleInfo=()=>
-{  
-  
-    
+{    
     return(
         <>
         <div className={Style.cycleInfoWrapper}>
@@ -29,6 +29,20 @@ const CycleInfo=()=>
         </>
      )
 }
+
+function Advertisement({image,brand,percentage})
+{  // storing the iflash sale image in the  databasel
+    return(
+    <>
+    <div className={Style.advertisementWrapper}>
+    {/* style={{border:"3px solid blue"} */}
+        <div className={Style.imgcrousel}>
+         <img src={`/flashSale/${image}`} alt="Furry Presents" loading="lazy" />
+         </div>  
+         <CycleInfo/>
+     </div>  
+    </>)
+};
 const SellerInfo=({name,address,contact})=>
 {
     return(
@@ -60,21 +74,10 @@ const Item=({property,value})=>
        </div>);
 
 }
-function Advertisement({image,brand,percentage})
-{  // storing the iflash sale image in the  databasel
-    return(
-    <>
-    <div className={Style.advertisementWrapper}>
-    {/* style={{border:"3px solid blue"} */}
-        <div className={Style.imgcrousel}>
-         <img src={`/flashSale/${image}`} alt="Furry Presents" loading="lazy" />
-         </div>  
-         <CycleInfo/>
-     </div>  
-    </>)
-};
+
 
 const CompanyInfo = () => {
+    const navigate = useNavigate();
     return (
         <>
             <div className={Style.infoWrapper}>
@@ -84,7 +87,9 @@ const CompanyInfo = () => {
                 </div>
                 <div className = {`${Style.infoContainer1} ${Style.infoContainer2}`}>
                     {/* drive to the product list table  */}
-                    <a href="http://localhost:5173/productList">
+                    <a onClick={()=>{
+                        navigate('/productList');
+                    }}>
                         Explore our Premium Brand Prodcut
                     </a>
                   <FontAwesomeIcon icon={faArrowRightLong} style={{fontWeight:"bold",fontSize:"1rem",color:"white"}}/>  
@@ -98,16 +103,18 @@ const CompanyInfo = () => {
 
 
 
-const FlashSale=()=>
+const FlashSale=({flashSale})=>
 {
+    // getting the data flash sale
+  
+    // console.log(flashSale);
     return(
         <div className ={Style.flashSaleWrapper} >
-          <Product/>   
-          <Product/>   
-          <Product/>   
-          <Product/>   
-          <Product/>   
-          <Product/>   
+          {
+             flashSale?.map((obj) => (
+                <Product id={obj._id}  key={obj._id} image={`${obj.imageName[0]}`} description={obj.description} price={obj.price} rating={3}  name={obj.name}/>
+              ))
+          }
         </div>
     )
 
@@ -115,13 +122,58 @@ const FlashSale=()=>
 
 function Home()
 {
-  
-    
     const [imgCount,setImgCount] = useState(0);
     // here declaring the require array
     const image = ["blue.jpg","green.jpg","red.jpg","smooth.jpg"];
     const brand = ["Mercery","zigzag","kkkk","jjjjj"];
     const percentage = [10,30,10,50];
+
+    const [flashSale,setFlashSale] = useState();
+    const [uniqueBrand,setUniqueBrand] = useState();
+    const [allProduct, setAllProduct] = useState();
+    useEffect(()=>{
+        const uniqueBrand=async()=>{
+            try{
+                const res = await axiosClient.get('/getUniqueBrand');
+                if(res.status == 200)
+                { setUniqueBrand(res.data.message);}
+            } 
+            catch(err)
+             {console.log(err);
+            
+              }
+          }
+          const allProduct=async()=>{
+            try{
+                const res = await axiosClient.get('/getProducts');
+                if(res.status == 200)
+                { setAllProduct(res.data.message);}
+            } 
+            catch(err)
+             {console.log(err);
+            
+              }
+          }
+         allProduct()
+        uniqueBrand();
+    },[])
+    // console.log(uniqueBrand);
+
+
+    useEffect(()=>
+    {
+     const getFlashSaleData=async()=>{
+       const res = await axiosClient.get('/getFlashSale');
+       if(res.status == 200)
+       {
+         setFlashSale(res.data.message);
+       }
+     }
+     getFlashSaleData();
+
+    },[]);
+
+
      useEffect(()=>{
         const interval = setInterval(()=>{
             setImgCount((prevCount)=>
@@ -132,6 +184,9 @@ function Home()
         },4000);
         return ()=>clearInterval(interval);
     },[]);
+
+    // flash sale data api 
+    // category data api
     return(
         <>
         <div className = {Style.container}>
@@ -140,17 +195,16 @@ function Home()
         <Advertisement image={image[imgCount]} brand ={brand[imgCount]} percentage={percentage[imgCount]}/>
         <section className = {Style.saleWrapper}>
         <h2 className={Style.saleTitle}>Flash Sale</h2>
-        <FlashSale/>
+        <FlashSale flashSale={flashSale}/>
         </section>
-
         <section className = {Style.saleWrapper}>
+            {/* show available brand product */}
         <h2 className={Style.saleTitle}>Categories</h2>
-        <FlashSale/>
+        <FlashSale flashSale={uniqueBrand}/>
         </section>
-
         <section className = {Style.saleWrapper}>
         <h2 className={Style.saleTitle}>Just For You</h2>
-        <FlashSale/>
+        <FlashSale flashSale={allProduct} />
         </section>
         </div>
         <Footer/>
@@ -159,3 +213,7 @@ function Home()
     )   
 }
 export default Home;
+
+
+
+

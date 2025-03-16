@@ -2,8 +2,9 @@
 import { useNavigate } from 'react-router-dom';
 import cycle from '../assets/blue.jpg';
 import Style from '../product/product.module.css';
-const Product=({image,description,price,rating,discount,id})=>
+const Product=({image,description,price,rating,discount,id,name})=>
 {
+  // console.log(name);
   const navigate = useNavigate();
 
   const productClick=(event)=>{
@@ -21,6 +22,7 @@ const Product=({image,description,price,rating,discount,id})=>
     <div className = {Style.productWrapper} onClick={productClick} data-value={id}>
         <img src={`${import.meta.env.VITE_TEST_URL}${image}`}/>
       <div className = {Style.productContainer}>
+        <h2>{name?name:"KBS Cycle"}</h2>
           <p className={Style.description}>
             {description}
           </p>

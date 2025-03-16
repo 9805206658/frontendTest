@@ -5,6 +5,7 @@ import Style from '../navItems/Signup.module.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
 import {faEye} from "@fortawesome/free-solid-svg-icons";
+import {faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUser } from "../redux/userSlice";
@@ -33,7 +34,7 @@ const schema = yup.object().shape({
 })
 
 function Signup() {
-    // const credential = useSelector((state)=>state.auth);
+    const credential = useSelector((state)=>state.auth);
     const [isLoginOpen,setIsLoginOpen] = useState();
     const dispatch = useDispatch(); 
     const[isPassword1,setIsPassword1]=useState(true);
@@ -42,19 +43,22 @@ function Signup() {
     
     const loginController= ()=>{
         setIsLoginOpen(prev=>!prev);
-
     };
 
  const {register, handleSubmit, formState: { errors } } = useForm({resolver: yupResolver(schema) });
-    const formSubmit = async(formData)=>{
+    const formSubmit = async(formData,event)=>{
          try{
-            alert("enter");
-            console.log(formData);
+            event.preventDefault();
+            event.target.reset();
             dispatch(createUser(formData));
-          }
+           }
          catch(err)
         {  console.log(err.message); }
     }
+    useEffect(()=>{
+        if(credential.isLoginOpen == true)
+        {loginController(); }
+    },[credential.isLoginOpen])
 
    
     return (
@@ -97,12 +101,12 @@ function Signup() {
                                        <div className ={` ${Style.flexCol} ${Style.passwordWrapper}`}>
                                             <div className={`${Style.flexRow}  `} >
                                               <input type={isPassword1?"password":"text"} id="password" name="password" placeholder="Enter your password" {...register("password")}/>
-                                              <FontAwesomeIcon icon={faEye} onClick={()=>{setIsPassword1((prev)=>!prev)}}/>
+                                              <FontAwesomeIcon icon={isPassword1?faEye:faEyeSlash} onClick={()=>{setIsPassword1((prev)=>!prev)}}/>
                                            </div>
                                            {errors["password"] && <span className="text-red-800 text-sm mt-1"> {errors["password"].message}</span>}       
                                            <div className={`${Style.flexRow} `} >
                                            <input type={isPassword2?"password":"text"}  id="confirmPassword" placeholder="Confirm your password"  name ="confirmPassword" {...register("confirmPassword")} />
-                                            <FontAwesomeIcon icon={faEye} onClick={()=>{setIsPassword2((prev)=>!prev)}}/> 
+                                            <FontAwesomeIcon icon={isPassword2?faEye:faEyeSlash} onClick={()=>{setIsPassword2((prev)=>!prev)}}/> 
                                            </div>
                                            {errors["confirmPassword"] && <span className={Style.error} > {errors["confirmPassword"].message}</span>} 
                                        </div>

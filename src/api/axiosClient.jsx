@@ -4,8 +4,7 @@ const baseUrl = 'http://localhost:5000';
 // 'https://backendtest-ddis.onrender.com'; 
 
 
-const getToken = () => localStorage.getItem("Token");
-
+const getToken = () => localStorage.getItem("token");
 const axiosClient = axios.create({
     baseURL: baseUrl,  
     headers: {
@@ -17,7 +16,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
     (config) => {
         const token = getToken();
-        // console.log(config.url);
+        // console.log(token);
         if(config.url == "createProduct")
         {  config.headers={
                 'Content-Type': 'multipart/form-data',  
@@ -40,7 +39,7 @@ axiosClient.interceptors.request.use(
 
 axiosClient.interceptors.response.use(
     (response) => {
-        console.log("enter response");
+        // console.log("enter response");
         return response;
     },
     (error) => {

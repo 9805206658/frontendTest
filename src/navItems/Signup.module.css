@@ -3,7 +3,7 @@
 .flexCol
 {
     display:flex;
-    row-gap:0.2em;
+    /* row-gap:0.4em; */
     flex-direction: column;
 }
 .flexRow
@@ -43,10 +43,14 @@ box-shadow: 0px 0px 5px;
 }
 .signupHeader p{
     font-size:1.5rem;
+    color:blue;
 }
 .signupHeader a{
     font-size:1.5rem;
     color:blue;
+}
+.passwordWrapper{
+    row-gap:0.5rem;
 }
 .passwordWrapper div{
     justify-content: space-between;
@@ -59,8 +63,7 @@ box-shadow: 0px 0px 5px;
 { 
      background-color: white;
      box-shadow:0px 0px 5px ;
-
-    box-shadow: 3px 3px 3px white;
+     box-shadow: 3px 3px 3px white;
 }
 .signupContainer form
 {
@@ -69,9 +72,7 @@ box-shadow: 0px 0px 5px;
     padding:2em 3em;
 
 }
-.signupContainer form >div:nth-child(1),form >div:nth-child(2){
-    row-gap:0.7vw;
-}
+
 
 .userWrapper{
    padding:0.5rem 0.5rem;
@@ -123,25 +124,40 @@ background-color:rgba(5, 204, 5, 0.485);
     color:red;
     font-size:15px;
 }
+.signupContainer form>div:first-child,.signupContainer form>div:nth-child(2){
+    row-gap: 9px;
+}
 
 
 @media screen and (max-width:600px)
 {
-    .signupHeader{
-        column-gap: 0.5vw;
-        /* border:3px solid blue; */
+    .wholeSignupWrapper{
+    row-gap:1rem;
+    align-items:center;
+    justify-content: center;
+    box-shadow:0px 0px 1px;
+    border-radius: 10px;
+    background-color:  #f5f5f5;
+        
     }
-    .signupHeader p{
-        font-size:1rem;
+    .signupHeader h2,.signupHeader p{
+        font-size:0.8rem;
     }
+   
+    
+   
     .signupHeader a{
         font-size:1rem;
     }
     
-   
+    .signupContainer{
+        width:90%;
+    }
     .signupContainer form{
         flex-direction:column;
-        padding:2em 3em;
+        width:100%;
+        /* border:3px solid red; */
+        padding:1rem;
         
     }
     .signupContainer form >div:nth-child(1),form >div:nth-child(2){
@@ -151,20 +167,21 @@ background-color:rgba(5, 204, 5, 0.485);
     .flexCol{
         row-gap: 0.4em;
     }
-    input{
+   
+    .signupContainer div{
         width:100%;
-        font-size:1.3em;
+        /* border:3px solid blue; */
     }
-    label
+    .signupContainer label
     {
-        font-size:1.6em;
+        font-size:0.8rem;
     }
     .headTitleBold{
-        font-size:1.5em;
+        font-size:0.8rem;
     }
     .btnSignup{
      background-color:orange;
-     font-size:1.8em;
+     font-size:0.8rem;
      width:100%;
      padding:0.5rem 1rem;
        
@@ -172,4 +189,65 @@ background-color:rgba(5, 204, 5, 0.485);
 }
 
 
+@media screen and (min-width:370px)
+{
+    .signupHeader{
+        column-gap: 6vw;
+      }
+}
 
+@media screen and (min-width:500px)
+{
+    .signupHeader{
+        column-gap: 21vw;
+      }
+
+}
+
+@media screen and (min-width:600px)
+{
+     .signupContainer form{
+        gap:0.2rem 1rem;
+        padding:1rem 0rem;
+     }
+     .signupContainer{
+        padding:1rem;
+     }
+    .signupHeader h2,.signupHeader p{
+        font-size:1.1rem;
+    }
+    .signupHeader{
+        column-gap: 20vw;
+      }
+}
+
+@media screen and (min-width:800px)
+{
+ .signupContainer form
+  {  display: flex;
+    gap:1rem 5rem;
+    padding:2em 3em;
+  }
+  .signupContainer{
+    padding:none;
+ }
+ 
+ 
+ .signupHeader h2,.signupHeader p{
+    font-size:1.5rem;
+}
+}
+
+@media screen and (min-width:1000px)
+{
+.signupHeader{
+    column-gap: 12vw;  
+}
+
+}
+@media screen and (min-width:1000px)
+{
+    .signupHeader{
+        column-gap: 9vw;  
+    }
+}

@@ -93,7 +93,7 @@ function  ProductList()
 
 const renderProducts = (items) =>
   items?.map((obj) => (
-    <Product id={obj._id}  key={obj._id} image={`${obj.imageName[0]}`} description={obj.description} price={obj.price} rating={3} />
+    <Product id={obj._id}  key={obj._id} image={`${obj.imageName[0]}`} description={obj.description} price={obj.price} rating={3}  name={obj.name}/>
   ));
  const reset=()=>{
   setColors({ isColor: false, items: null });

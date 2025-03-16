@@ -186,8 +186,6 @@ li:hover
     font-size:2rem;
   }
 
-  
-
   .navbarContainer ul
   {
     display: none;
@@ -234,8 +232,12 @@ li:hover
 .navbarContainer ul li span{
   font-size: 0.60rem;
 }
+ul li:nth-child(3) button{
+  font-size:0.60rem;
 
 }
+}
+
 
 @media screen and (min-width:600px)
 {
@@ -247,8 +249,8 @@ li:hover
    
     padding:0px 0px 0px 0px; 
 }
-.navbarContainer ul li span{
-  font-size: 0.90rem;
+.navbarContainer ul li span,ul li:nth-child(3) button{
+  font-size: 0.7rem;
 }
 
 }
@@ -301,6 +303,9 @@ li:hover
 @media screen and (min-width:750px)
 {
 
+  .navbarContainer ul li span{
+
+  }
   .logoutContainer span{
     display: inline;
     font-size:0.90rem;
@@ -319,6 +324,10 @@ li:hover
 
 
 @media screen  and (min-width:1300px){
+  ul li:nth-child(3) button{
+    font-size:1.25rem;
+    /* border:3px solid red; */
+  }
   .navbarContainer{
     column-gap: 30px;
     padding: 1px 15px;

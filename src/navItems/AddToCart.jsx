@@ -5,6 +5,9 @@ import axiosClient from "../api/axiosClient";
 import { useEffect ,useState} from "react";
 import { useNavigate } from "react-router-dom";
 import createNotification from "../notification/notification";
+import { inDec } from "../api/productService";
+import { getSingleProduct } from "../api/productService";
+import axios from "axios";
 const OrderSummary=({cartInfo})=>
 {
   let subTotal = 0;
@@ -54,10 +57,46 @@ const OrderSummary=({cartInfo})=>
 }
 
 const CartItem=({cart,setIsDelete})=>{
-  console.log(cart)
+
   const {image,brand,description,productId,name,quantity,totalPrice,_id}= cart;
-  console.log(cart);
+  const [productInfo,setProductInfo] = useState();
+  const [finalQuantity,setFinalQuantity]= useState(quantity);
+  
+  const [isUpdateCart,setIsUpdateCart] = useState(false);
+
+  // here hit api to get total quantity of product
+  useEffect(()=>{
+    const getInfo=async()=>{
+      setProductInfo(await getSingleProduct(productId));
+    }
+    getInfo();
+  },[isUpdateCart]);
+  // update product list card product coll when user change qty
+  const maxQuantity=quantity+productInfo?.quantity;
+  console.log("the quantity infomation");
+  console.log("maxQuantity"+maxQuantity);
+  console.log("finalQuantity"+finalQuantity);
+  console.log("finalQuantity"+maxQuantity-finalQuantity);
+  useEffect(()=>{
+   async function updateCart()
+   {
+   const updateInfo={
+        productId:productId,
+        cartId :_id,
+        cartFinalQty:finalQuantity,
+        productFinalQty:maxQuantity-finalQuantity,
+       }
+    try{const res = await axiosClient.put("/updateCart",updateInfo);
+       console.log(res); }
+    catch(err)
+    { console.log(err);  }
+  }
+  updateCart();
+
+  },[finalQuantity]);
+
   const deleteClickHandler =async(event)=>{
+  alert("click");
     event.preventDefault();
      try{
       const res= await axiosClient.delete(`deleteCart/${_id}/${productId}/${quantity}`);
@@ -71,11 +110,7 @@ const CartItem=({cart,setIsDelete})=>{
        }
      }
      catch(err)
-     {
-      console.log(err);
-     }
-
-
+     { console.log(err); }
    }
   
   return(
@@ -100,9 +135,16 @@ const CartItem=({cart,setIsDelete})=>{
            <i className="fa-solid fa-trash" onClick={deleteClickHandler}></i>
       </div>
       <div className={`${Style.buttonWrapper} ${Style.flexRow}`}>
-           <button>+</button>
-           <span>{quantity}</span>
-           <button>-</button>
+           <button onClick={(event)=>{
+            inDec(event,setFinalQuantity,maxQuantity)
+             }} 
+             data-value="+" >+</button>
+           <span>{finalQuantity}</span>
+           <button onClick={(event)=>{
+            inDec(event,setFinalQuantity,maxQuantity)
+             }} 
+             data-value="-" 
+           >-</button>
       </div>
 
     </div>
@@ -120,7 +162,7 @@ const EmptyCart=()=>{
   return(<div>
    <section className={Style.noCartWrapper}>
           <p>There are no item in the cart</p>
-           <button  onClick={continueBtnClick} class="continue_shop" onclick="continue_shop()">
+           <button  onClick={continueBtnClick}  >
             Continue Shooping
            </button>
     </section>
@@ -131,7 +173,7 @@ const AddToCart=()=>{
 
   // here fetching data of the user
   const [isDelete ,setIsDelete]= useState(0);
-  const [cartInfo,setCartInfo] =  useState([]);
+  const [cartInfo,setCartInfo] =  useState();
    const allItemDelete=async(event)=>{
     event.preventDefault();
     try{
@@ -153,9 +195,11 @@ const AddToCart=()=>{
    }
   useEffect( ()=>{
     const getData=async()=>{
-      console.log("deleteState"+isDelete);
+
+      // console.log("deleteState"+isDelete);
     try{
         const getCart = await axiosClient.get(`getCart/${localStorage.getItem("id")}`) ;
+        console.log(getCart);
           if(getCart.status == 200)
           {setCartInfo(getCart.data.message);} }
         catch(err)
@@ -163,13 +207,12 @@ const AddToCart=()=>{
   }
   getData();
 },[isDelete]);
- 
-
- 
+console.log(cartInfo);
+// console.log(cartInfo.length);
   return(
   // here defining the component header 
   <>
- { cartInfo.length != 0?
+ { cartInfo?.length>=1?
     (<div className={`${Style.wholeCartWrapper} `}>   
       <div className={`${Style.cartWrapper} ${Style.flexCol}`}>
 

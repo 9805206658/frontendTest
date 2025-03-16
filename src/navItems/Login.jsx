@@ -10,7 +10,10 @@ import { loginUser } from "../redux/userSlice";
 import { useSelector } from "react-redux";
 import Style from '../navItems/login.module.css';
 import Style1 from '../navItems/Signup.module.css';
-import {faEye, faL} from "@fortawesome/free-solid-svg-icons";
+import {faEye, faListSquares} from "@fortawesome/free-solid-svg-icons";
+import {faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+import createNotification from "../notification/notification";
+
 const schema = yup.object().shape({
     password: yup.string()
         .min(10, "Password must be at least 10 characters")
@@ -21,8 +24,10 @@ const schema = yup.object().shape({
         .required("Contact Number is required"),
     userType:yup.string().required("required type of the user")
 });
-export const CreateInputField = ({ type, name,value, labelName, placeHolder = "", register, errors, logo = "" ,extraField={},handleChange}  ) => {
+export const CreateInputField = ({ type, name,value, labelName, placeHolder = "", register, errors,  logo1=""  ,logo = "" ,extraField={},handleChange}) => {
     // here getting global state
+    console.log("loggogog");
+    console.log(logo1);
     const [isPassword,setIsPassword]=useState(true);
     return (
         <div className={`${Style.flexCol} ${Style.inputWrapper} `}>
@@ -37,7 +42,7 @@ export const CreateInputField = ({ type, name,value, labelName, placeHolder = ""
                     value={value} 
                     onChange={handleChange}
                 />
-                {logo && <FontAwesomeIcon icon={logo}  onClick={()=>
+                {logo && <FontAwesomeIcon icon={isPassword?logo:logo1}  onClick={()=>
                     { setIsPassword((prev)=>!prev);}
                 } />}
             </div>
@@ -60,8 +65,15 @@ const Login = ({ isLoginOpen, loginController}) => {
                 console.log(formData);
                 dispatch(loginUser(formData));      
              } 
-           catch (error)
-            { console.log(error.message); 
+           catch (err)
+            { 
+                console.log(err);
+                createNotification({
+                    isSuccess: false,
+                    description: err.data?.error || "An unexpected error occurred",
+                    placement: "topRight",
+                    duration: 2,
+                  });
             }
     };
 
@@ -80,12 +92,9 @@ const Login = ({ isLoginOpen, loginController}) => {
      
         if(creadentail.isLogin == true && creadentail.userType == 'Seller')
         { // navigating to the homepage
-          {loginController}
-            navigate('./addItems');    
+           navigate('/addItems');    
         }
         if(creadentail.isLogin == true && creadentail.userType == 'Buyer'){
-           
-           { loginController }  
             navigate('./');   
         }
 
@@ -102,7 +111,7 @@ const Login = ({ isLoginOpen, loginController}) => {
                             &times;
                         </button>
                         <h1 className="font-bold text-3xl mb-4">Login Here</h1>
-                        <form className="flex flex-col gap-y-3" onSubmit={handleSubmit(formSubmit)}>
+                        <form className="flex flex-col gap-y-2" onSubmit={handleSubmit(formSubmit)}>
                             <CreateInputField
                                 type="number"
                                 name="phone"
@@ -122,6 +131,7 @@ const Login = ({ isLoginOpen, loginController}) => {
                                 errors={errors}
                                  logo={faEye}
                                  extraField={""}
+                                 logo1={faEyeSlash}
                             />
 
                             <div className={`${Style1.userWrapper} ${Style1.flexCol}`}>
@@ -142,7 +152,10 @@ const Login = ({ isLoginOpen, loginController}) => {
                             <span className="text-red-800 text-sm"></span>
                         </form>
                         <div className="flex justify-between">
-                        <span className="text-red-500">didn't have account ?</span> <span onClick={() => { navigate("/signUp"); }} className="text-blue-500">create Account</span> </div>
+                        <span className="text-red-500">didn't have account ?</span> <span onClick={() => { 
+                            loginController();
+                            navigate("/signUp");
+                             }} className="text-blue-500">create Account</span> </div>
                     </div>
                 </div>
             }

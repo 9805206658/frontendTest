@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import Footer from "../footer/footer";
 const CreatePaymentEle=({type, name, value, extraField, labelName, register})=>{
     // console.log(errors[name]); // Move console.log outside JSX
+    // alert(window.innerHeight);
     return( 
         <div className={Style.paymentEleContainer}>
             {labelName && <label htmlFor={name}>{labelName}:</label>}

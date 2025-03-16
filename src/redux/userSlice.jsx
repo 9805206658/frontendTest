@@ -31,6 +31,12 @@ const createAsyncThunkPost=(url)=>{
   }
   catch(error)
   {
+    createNotification({
+      isSuccess: false,
+      description: error.data?.message || "An unexpected error occurred",
+      placement: "topRight",
+      duration: 2,
+    });
     return thunkAPI.rejectWithValue(error.response?.data || "failed to fetch profile");
   }
 }));
@@ -39,6 +45,7 @@ export const loginUser  = createAsyncThunkPost("loginUser");
 export const createUser = createAsyncThunkPost("createUser");
 const initialState={
   isLogin:false,
+  isLoginOpen:false,
   status:null,
   userName:null,
   userType:null,

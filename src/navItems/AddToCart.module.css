@@ -23,14 +23,13 @@
 }
 
 .cartWrapper{
-    /* border:3px solid blue; */
     row-gap:2rem;
+    /* border:3px solid red; */
     padding:0rem 0.2rem;
    
 }
 .cartHeader{
     padding:0.5rem 0.5rem;
-    /* border:3px solid red; */
     background-color: white;
     justify-content: space-between;
 }
@@ -40,8 +39,7 @@
 }
 .cartItemWrapper{
 
-    row-gap: 1rem;
-    
+    row-gap: 1rem;  
 
 }
 
@@ -78,7 +76,6 @@
 }
 
 .buttonWrapper button:hover{
-    /* border:1px solid blue; */
     box-shadow: 1px 1px 3px  gray;
 }
 
@@ -149,11 +146,24 @@
 
 @media screen and (min-width:370px)
 {
+    .cartItemContainer{
+        flex-direction: column;
+        row-gap:3vw;
+    }
+    .discountWrapper{
+        /* border:3px solid red; */
+        flex-direction: row;  
+        column-gap: 11vw;
+    }
+    .buttonWrapper{
+        column-gap: 5vw;
+        /* border:3px solid blue; */
+    }
+    
     .wholeCartWrapper{
        row-gap: 2vw;
        grid-template-columns: auto ;
-       padding:0.5vw;
-       margin-bottom:5vw;
+       padding:1rem;
     }
      .cartItemContainer{
        padding:0.5rem 1rem;
@@ -164,9 +174,31 @@
 
 }
 
+@media screen and (min-width:600px)
+{
+    .cartItemContainer{
+        flex-direction: row;
+    }
+    .discountWrapper{
+        flex-direction: column;  
+    }
+    .buttonWrapper{
+        column-gap:1vw;
+    }
 
+}
 
 @media screen and (min-width:1000px)
+{
+    .wholeCartWrapper{
+        grid-template-columns: auto auto ;
+        padding:1rem 1rem;
+
+     }
+
+}
+
+@media screen and (min-width:1500px)
 {
     .wholeCartWrapper{
         grid-template-columns: auto auto ;

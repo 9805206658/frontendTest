@@ -54,6 +54,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     background-color:hsl(225, 33%, 98%);
 
 }
@@ -156,14 +157,18 @@ img{
 {
     width:100%;
     display: grid;
-    justify-content: center;
-    gap: 0.6vw;
+    /* justify-contnent: center; */
+    gap: 0.4vw;
+    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
     grid-template-columns: auto auto auto auto auto  ;
 }
 .saleWrapper
 {
+    display: flex;
+    width:70vw;
+    flex-direction: column;
+    justify-content: flex-start;
     margin-top:10px;
-    border:3px solid blue;
 
 }
 
@@ -172,6 +177,7 @@ img{
     padding:10px 5px;
     font-size:30px;
     color:#424242;
+    text-align: left;
    text-transform: capitalize;
      font-style: italic;   
     text-shadow: 1px 1px 2px blue  ;
@@ -205,7 +211,7 @@ img{
      
     }
     .cycleInfoWrapper{
-        row-gap:30px;
+        /* row-gap:30px; */
            padding:10px 10px;
 
     }
@@ -234,7 +240,8 @@ img{
     .flashSaleWrapper
     {
        grid-template-columns: auto  auto ;
-       gap:5vh;
+       justify-content: center;
+       gap:1vh;
      }
      .advertisementWrapper
      {
@@ -245,7 +252,7 @@ img{
      .imgcrousel
      {
         width:50vw;
-        height:60vh;
+        height:51vh;
      
      }
    .kbs_bannerTitle
@@ -258,12 +265,21 @@ img{
      
 }
 
+@media screen and (min-width:600px) {
+    .infoWrapper{
+     
+        padding:30px 7vw;
+      
+    }
+
+}
+
 @media screen and (min-width:900px)
 {
     .flashSaleWrapper
     {
        grid-template-columns: auto  auto auto ;
-       gap:5vh;
+       gap:2vw;
      }
      .infoWrapper{
         width:100vw;
@@ -290,15 +306,17 @@ img{
     .imgcrousel
     {
        width:58vw;
-       height:100vh; 
     }
     
-} 
+ }
 
 @media screen and (min-width:1300px)
 {
+    .cycleInfoWrapper{
+        padding:49px 36px;
+    }
     .infoWrapper{
-        padding:27px 17.5rem;
+        padding:27px 9.5rem;
         /* border:3px solid blue; */
     }
     .kbs_bannerTitle{
@@ -314,8 +332,25 @@ img{
 
     }
     .flashSaleWrapper{
+
         grid-template-columns: auto auto auto auto auto;
         gap:0.6vw;
+    
+    }
+
+}
+
+@media screen and (min-width:1400px)
+{
+    .infoWrapper{
+        padding:27px 11.5rem;
+    }
+}
+
+@media screen and (min-width:1500px)
+{
+    .infoWrapper{
+        padding:27px 18.5rem;
     }
 
 }
