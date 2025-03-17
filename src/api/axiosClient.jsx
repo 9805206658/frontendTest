@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseUrl = 'http://localhost:5000';
-// 'https://backendtest-ddis.onrender.com'; 
+const baseUrl = 'https://backendtest-ddis.onrender.com'; 
+// 'http://localhost:5000';
 
 
 const getToken = () => localStorage.getItem("token");
