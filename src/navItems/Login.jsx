@@ -92,7 +92,7 @@ const Login = ({ isLoginOpen, loginController}) => {
      
         if(creadentail.isLogin == true && creadentail.userType == 'Seller')
         { // navigating to the homepage
-           navigate('/addItems');    
+           navigate('/sellerMenu');    
         }
         if(creadentail.isLogin == true && creadentail.userType == 'Buyer'){
             navigate('./');   

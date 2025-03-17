@@ -20,8 +20,6 @@ const SortItem=({name,sortBtnClick,dataValue})=>
 
 function  ProductList()
 {
-  console.log(import.meta.env);
-  console.log(url);
   const [products,setProducts]=useState([]);
   const [brands,setBrands] = useState({isBrand:false, items:null});//is brands = true,brands 
   const [colors,setColors] = useState({isColor:false ,items:null});

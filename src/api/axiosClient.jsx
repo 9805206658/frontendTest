@@ -14,7 +14,9 @@ const axiosClient = axios.create({
 
 // configuration before sending request 
 axiosClient.interceptors.request.use(
+
     (config) => {
+        console.log(config);
         const token = getToken();
         // console.log(token);
         if(config.url == "createProduct")

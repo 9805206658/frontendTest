@@ -9,9 +9,12 @@ import { useState } from 'react';
 import { logout } from './redux/userSlice';
 import AddItems from './seller/addItems';
 import ProductDetail from './product/productDetail';
+import { useNavigate } from 'react-router-dom';
 import PaymentDetail from './payment/payment';
+import Profile from './navItems/profile';
 import { useDispatch,useSelector } from 'react-redux';
 import { BrowserRouter as Router,Routes, Route,NavLink} from 'react-router-dom';
+import SellerMenu from './seller/sellerMenu';
 const SearchBar=()=>{
     return (
         <div className={Style.searchContainer}>
@@ -20,6 +23,24 @@ const SearchBar=()=>{
         </div>
       );
 
+}
+const ProfilePicture=()=>{
+    const userName= localStorage.getItem('userName');
+    const navigate = useNavigate();
+    const profileClick=()=>{
+        navigate('/profile');
+    }
+
+    return(
+        <>
+        {userName &&
+        <div onClick={profileClick} className={Style.profileWrapper}>
+            <img src={logoImg}></img>
+            <span>{userName}</span>
+        </div>
+        }
+         </>
+    )
 }
 function App() {
     // here creating state 
@@ -69,7 +90,8 @@ function App() {
                           <span>KBS</span>
                        </div>
                       {/* border:"3px solid blue" */}
-                   <div style={{display:'flex',justifyContent:'space-between',width:'100%',padding:"0px 5px"}}>
+                     
+                   <div className={Style.navItemContainer}>
                     <ul>
                         <li>
                             <NavLink to="/" className={({ isActive }) => isActive ? `${Style.link} ${Style.active}` : Style.link}>
@@ -97,8 +119,11 @@ function App() {
                             </NavLink>
                         </li>
                         
+                        
                     </ul>
                     {/* here defining the search item */}
+                    
+                    <ProfilePicture/>
                     <SearchBar/>
                     <div className={Style.logoutContainer} onClick={(e)=>{
                         e.preventDefault();
@@ -111,6 +136,7 @@ function App() {
                      <span>logout</span>
                     </div>
                     </div>    
+                  
                   </nav> 
                 <div>
                  <Routes>
@@ -122,6 +148,8 @@ function App() {
                     <Route path="/productDetail" element ={<ProductDetail/>}/>
                     <Route path="/login" element={<Login  isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen}/>} />
                     <Route path="/paymentDetail" element={<PaymentDetail/>} />
+                    <Route path="/profile" element={<Profile/>} />
+                    <Route path="/sellerMenu" element={<SellerMenu/>} />
                 </Routes>
                 </div>
             </div>

@@ -12,15 +12,19 @@ const OrderSummary=({cartInfo})=>
 {
   let subTotal = 0;
   let total=0;
+  let tax = 0;
    for(let i= 0; i < cartInfo.length; i++)
    { subTotal += cartInfo[i].totalPrice;}
-   total = subTotal+175;
+   tax = subTotal*0.13;
+   total = tax+175+subTotal;
+  
   const navigate = useNavigate();
   const ptcHandler=()=>{
     const paymentDetail={
        subTotal:subTotal,
        total:total,
-       charge:"175"
+       tax:tax,
+       charge:175
     }
     navigate('/paymentDetail',{state:{paymentDetail:paymentDetail}});
   }
@@ -73,13 +77,12 @@ const CartItem=({cart,setIsDelete})=>{
   },[isUpdateCart]);
   // update product list card product coll when user change qty
   const maxQuantity=quantity+productInfo?.quantity;
-  console.log("the quantity infomation");
-  console.log("maxQuantity"+maxQuantity);
-  console.log("finalQuantity"+finalQuantity);
-  console.log("finalQuantity"+maxQuantity-finalQuantity);
   useEffect(()=>{
    async function updateCart()
    {
+
+    if(finalQuantity != quantity)
+    {
    const updateInfo={
         productId:productId,
         cartId :_id,
@@ -90,16 +93,17 @@ const CartItem=({cart,setIsDelete})=>{
        console.log(res); }
     catch(err)
     { console.log(err);  }
+    }
   }
   updateCart();
 
   },[finalQuantity]);
 
+
   const deleteClickHandler =async(event)=>{
-  alert("click");
     event.preventDefault();
      try{
-      const res= await axiosClient.delete(`deleteCart/${_id}/${productId}/${quantity}`);
+      const res= await axiosClient.delete(`deleteCart/${_id}/${productId}/${finalQuantity}`);
       if(res.status==200)
       {
         setIsDelete(prev=>prev+1);
@@ -199,20 +203,26 @@ const AddToCart=()=>{
       // console.log("deleteState"+isDelete);
     try{
         const getCart = await axiosClient.get(`getCart/${localStorage.getItem("id")}`) ;
+         console.log("the cart info");
         console.log(getCart);
-          if(getCart.status == 200)
+          if(getCart.status == 200 )
           {setCartInfo(getCart.data.message);} }
+        
         catch(err)
-        { console.log(err);}
+        {
+          
+           setCartInfo(null);
+          
+
+        }
   }
   getData();
 },[isDelete]);
-console.log(cartInfo);
-// console.log(cartInfo.length);
+
   return(
-  // here defining the component header 
+  // here defining the cAomponent header 
   <>
- { cartInfo?.length>=1?
+ { cartInfo?.length>0?
     (<div className={`${Style.wholeCartWrapper} `}>   
       <div className={`${Style.cartWrapper} ${Style.flexCol}`}>
 

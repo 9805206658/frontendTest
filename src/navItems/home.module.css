@@ -230,6 +230,7 @@ img{
     .flashSaleWrapper
     {
        grid-template-columns: auto  ;
+       justify-content: center;
        row-gap:5vh;
      }
 
@@ -351,6 +352,7 @@ img{
 {
     .infoWrapper{
         padding:27px 18.5rem;
+        width:100%;
     }
 
 }
