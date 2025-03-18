@@ -40,8 +40,6 @@ const CartItem=({product,setIsDelete})=>{
 
   const deleteClickHandler =async(event)=>{
     try{
-       alert("click");
-      
       const res= await axiosClient.delete(`deleteProduct/${_id}`);
       console.log(res);
       if(res.status==200)
@@ -109,10 +107,10 @@ const SellerProductList=({menuClickHandler})=>{
   // here fetching data of the user
   const [isDelete ,setIsDelete]= useState(0);
   const [productInfo,setProductInfo] =  useState();
-   const allItemDelete=async(event)=>{
+   const allProductDelete=async(event)=>{
     event.preventDefault();
     try{
-      const res= await axiosClient.delete(`/deleteAllCart/${cartInfo[0].buyerId}`);
+      const res= await axiosClient.delete(`/deleteAllProduct/${productInfo[0].sellerId}`);
       if(res.status==200)
       {
         setIsDelete(prev=>prev+1);
@@ -156,7 +154,7 @@ const SellerProductList=({menuClickHandler})=>{
               <label forhtml="selectAll">
                   <input type="checkbox" id="selectAll"/>&nbsp;&nbsp;check all 
               </label>
-              <button onClick={allItemDelete}>
+              <button onClick={allProductDelete}>
                   <i className="fa-solid fa-trash"></i> &nbsp;&nbsp;delete
               </button>
            </div>

@@ -75,13 +75,13 @@
     display: flex;
     background-color: #fafafafe;
     flex-direction: column;
-    row-gap:0.5vw;
+    row-gap:0.1vw;
 }
  .descriptionWrapper h1{
     text-align: center;
     color:#f57224;
     font-weight:bold;
-    font-size:2rem;
+    font-size:1.5rem;
     padding:0.3rem 0.5rem
  }
  .descriptionWrapper div{
@@ -92,7 +92,7 @@
  .descriptionWrapper .discount span{
 
     display: block;
-    color:green;
+    color:blue;
     font-weight:600;
  }
 
@@ -104,7 +104,7 @@
  }
  .additionalInfo span{
     text-transform: capitalize;
-    color:green;
+    color:blue;
     font-weight: bold;
     font-size:inherit;
  }
@@ -115,7 +115,7 @@
 }
 .descriptionWrapper .quantity  span:first-child{
     font-weight: bold;
-    color:green;
+    color:bluek;
 }
 
 
@@ -201,4 +201,154 @@ transition: all 1s linear ;
     display: block;
     width:100%;
     text-align: center;
+}
+
+@media screen and (min-width:370px)
+{
+    .detailPage{
+        padding:0.5rem 0.3rem;
+        font-size:0.9rem;
+    }
+    .wholeDetailWrapper{
+        width: 90%;
+        row-gap:0.1rem;
+      flex-direction:column;
+    }
+    .wholeDetailWrapper > div{
+        width:100%;
+    }
+ 
+    .imageWrapper .imageContainer{
+        padding:0.3rem;
+
+    }
+    .imageContainer img{
+        height:200px;
+    }
+    .descriptionWrapper{
+        
+        row-gap:0;
+        flex-direction: column;
+    }
+    .descriptionWrapper h1{
+        padding:0.1rem 0rem;
+    }
+    .descriptionWrapper div{
+        padding:0.2rem;
+    }
+    
+    .deliverWrapper {
+        /* width:90%; */
+        flex-direction: column;
+    }
+    .buySellContainer button {
+        padding:0.2rem;
+        font-size:1rem;
+        
+    }
+    
+    
+    footer{
+        display: none;
+    }
+}
+
+@media screen and (min-width:600px)
+{
+    .detailPage{
+        padding:0.5rem 0;
+        font-size:0.6rem;
+    }
+    .wholeDetailWrapper{
+        width: 100%;
+      flex-direction:row;
+    }
+    
+    .imageWrapper .imageContainer{
+        padding:0.3rem;
+    }
+
+    .imageBtnWrapper div img{
+        height:25px;
+        width:25px;
+    }
+    .descriptionWrapper{  
+        row-gap:1vh;
+        padding:0.1rem;
+        flex-direction: column;
+    }
+    .descriptionWrapper h1{
+        padding:0.1rem 0rem;
+    }
+    .descriptionWrapper div{
+        padding:0.2rem;
+    }
+    
+    .buySellContainer button {
+        padding:0.2rem;
+        font-size:0.8rem;
+        border-radius: 7px;  
+    }
+    .descriptionWrapper .quantity{
+        column-gap: 0px;
+    }
+    .descriptionWrapper .quantity button{
+        padding:0.1rem 0.5rem;
+    }
+   
+     footer{
+        display: flex;
+    }
+}
+
+@media screen and (min-width:900px) {
+    .detailPage{
+        padding:1rem 0rem;
+        font-size:0.6rem;
+    }
+    .wholeDetailWrapper{
+        width: 80%;
+    }
+    .imageContainer img{
+        height:250px;
+    }    
+}
+
+@media screen and (min-width:1200px) {
+    .detailPage{
+        padding:2rem 0;
+        font-size:1rem;
+    }
+   .descriptionWrapper{
+    row-gap: 2vh;
+   }
+   .imageContainer img{
+    height:400px;
+}
+ .buySellContainer button {
+    padding:0.5rem;
+    font-size:1.2rem;    
+   }
+}
+
+@media screen and (min-width:1300px){
+    .wholeDetailWrapper{
+        width: 70%;
+    }
+    .descriptionWrapper{
+        row-gap: 3.3vh;
+       }
+   .imageBtnWrapper div img{
+        height:50px;
+        width:50px;
+    }
+    .quantity button ~span{
+        padding:0.5rem 1rem;
+
+    }
+    .descriptionWrapper .quantity button{
+        padding:0.5rem 1rem;
+    }
+   
+    
 }

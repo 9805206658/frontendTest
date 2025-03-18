@@ -13,7 +13,6 @@
     display: flex;
     flex-direction:column;
     row-gap:30px;  
-    /* border:3px solid blue; */
    
 }
 .sortWrapper
@@ -30,14 +29,20 @@
     grid-template-columns: auto auto auto;
 }
 .sortBtn{
-    padding:  10px;
+    padding:0.3rem;
     background-color: rgba(128, 128, 128, 0.354);
     border: none;
     font-style: italic;
+    transition:1s;
     color: green;
     font-size: 16px;
     border-radius: 10px;
-    box-shadow: 3px 3px 5px gray;
+    box-shadow: 0px 0px 5px gray;
+}
+.sortBtn:hover{
+    
+    box-shadow: 0px 0px 1px greenyellow;
+
 }
 
 

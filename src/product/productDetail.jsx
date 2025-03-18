@@ -64,7 +64,7 @@ const Discription =({product,initialImg,setIsAddCard})=>
         quantity:countQuantity,
         price:price,
         brand:brand,
-        totalPrice:0,
+        totalPrice:100,
         finalQuantity:(quantity-countQuantity),
         image:initialImg
       }
@@ -116,7 +116,6 @@ const Discription =({product,initialImg,setIsAddCard})=>
              <span>color: &nbsp;{color}</span>
           </div>
           <div className={Style.additionalInfo}>
-            {/* <span>color :{color} &nbsp; &nbsp;</span> */}
             <span>Frame Material:&nbsp;{frameMaterial}</span>
             <span>brand :&nbsp;{brand}</span>
             <span>Weight: &nbsp;{weight}</span>

@@ -7,6 +7,7 @@ import Footer from "../footer/footer";
 import Style1 from "../navItems/Signup.module.css";
 import { useState } from "react";
 import axiosClient from "../api/axiosClient";
+import { useLocation } from "react-router-dom";
 import createNotification from "../notification/notification";
 // here defining sche
 const schema=yup.object().shape({
@@ -26,66 +27,65 @@ const schema=yup.object().shape({
 })
 const AddItems=()=>{
 
-        const [isUpload,setIsUpload]  = useState(false);
-        const generateUniqueNumber = (min,max)=>{
-                return Math.floor(Math.random() * (max - min)) + min; 
-        }
-        const [uploadFile,setUploadFile] = useState([]);
-         // here making the function that generate the unique character 
+        const location = useLocation();
+        // bring the state from 
+        // isLocation turn on 
+        // hit api
+        // set all th
+      
+        const generateUniqueNumber = (min,max)=>{ return Math.floor(Math.random() * (max - min)) + min};
+        const [uploadFile,setUploadFile] = useState();
+        // make list of allowed extension
+        const allowExt = ["png","jpeg","webp","svg","jpg"];
         const handleChange=(event)=>{
-                event.preventDefault();
-                if(isUpload==true)
-                {
-                        setIsUpload((prev)=>!prev);
-                        setUploadFile([]);
-                }  
-                else{
-                        setIsUpload((prev)=>!prev);
-                }      
-                const files = event.target.files;
-              for(let i = 0; i < files.length; i++)
-              {  // here spliting the files 
-                  let fileList = files[i].name.split(".");
+                setUploadFile([])  ;
+               const files = event.target.files;
+               let newFiles =[];
+               for(let i = 0; i < files.length; i++)
+              {
+                if(allowExt.includes(files[i].type.split('/')[1]))
+                { let fileList = files[i].name.split(".");
                   // 0 filename + unique character + file extension/
-                  uploadFile.push(new File([files[i]],fileList[0]+generateUniqueNumber(100,1000)+"."+fileList[fileList.length-1]));
+                  newFiles.push(new File([files[i]],fileList[0]+generateUniqueNumber(100,1000)+"."+fileList[fileList.length-1]));
+                // we must need setu when we need assign the value for usestate 
+                console.log(newFiles);
+                  setUploadFile(newFiles)  ;  
+                  console.log(uploadFile);
+                }
               }
-              console.log(uploadFile);
-            
         }  
 
         const { register, handleSubmit, formState: { errors } } = useForm({
               resolver: yupResolver(schema),
           });
 
-        const formSubmit=async (subData)=>{
-             let fileNames = [];
-             console.log("the upload files");
-             console.log(uploadFile);
 
+        const formSubmit=async (subData,event)=>{
+                console.log("the upload files");
+             console.log(uploadFile);
+                event.preventDefault();
+             let fileNames = [];
              for(let j = 0; j<uploadFile.length; j++)
              {fileNames[j] = uploadFile[j].name;}
-
-
-             console.log('the file names');
              subData.imageName = fileNames;
              const formData = new FormData();
              uploadFile.forEach((file)=>{ 
-                formData.append('files',file);
-             })
-             formData.append('subData',JSON.stringify(subData));
+                     formData.append('files',file);
+                  })
+                 formData.append('subData',JSON.stringify(subData));
+        
              try
-             {
-              const res = await axiosClient.post("createProduct",formData);
-               if(res.status==200)
-               {
-                createNotification({
-                        isSuccess: true,
-                        description: res.data?.message || "sucessfully created product",
-                        placement: "topRight",
-                        duration: 2,
-                      });
-                
-               }
+             {    const res = await axiosClient.post("createProduct",formData);
+                       if(res.status==200)
+                       {
+                        createNotification({
+                                isSuccess: true,
+                                description: res.data?.message || "sucessfully created product",
+                                placement: "topRight",
+                                duration: 2,
+                              });
+                        
+                       }
              }
              catch(err)
              {  
@@ -96,9 +96,15 @@ const AddItems=()=>{
                         duration: 2,
                       });
                 console.log("error :"+err  ); 
-         }
-               
-      }
+         } }
+
+        //  const inputElement = document.querySelector(`input[name="sellerId"]`);
+        //  console.log(inputElement);
+        //         if (inputElement) {
+        //         inputElement.value = "hello"; // Correct way to assign value to an input field
+        //         } else {
+        //         console.log("Input element with name='brand' not found.");
+        //         }
    return (<>
    <div className = {`${Style.wholeAddItemsWrapper}`}>
       <h2 className={`${Style.formTitle}`}>Enter Cycle Information</h2>

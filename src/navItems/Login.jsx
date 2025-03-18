@@ -25,9 +25,6 @@ const schema = yup.object().shape({
     userType:yup.string().required("required type of the user")
 });
 export const CreateInputField = ({ type, name,value, labelName, placeHolder = "", register, errors,  logo1=""  ,logo = "" ,extraField={},handleChange}) => {
-    // here getting global state
-    console.log("loggogog");
-    console.log(logo1);
     const [isPassword,setIsPassword]=useState(true);
     return (
         <div className={`${Style.flexCol} ${Style.inputWrapper} `}>
@@ -46,15 +43,15 @@ export const CreateInputField = ({ type, name,value, labelName, placeHolder = ""
                     { setIsPassword((prev)=>!prev);}
                 } />}
             </div>
-            {errors[name] && <span className="text-red-800 text-2xl mt-1">{errors[name].message}</span>}
+            {errors[name] && <span className="text-red-800 text-sm mt-1">{errors[name].message}</span>}
         </div>
     );  
 };
 
 // Login component
 const Login = ({ isLoginOpen, loginController}) => {
-    const creadentail = useSelector((state)=>{return state.auth});
-    console.log(creadentail);
+    const creadential = useSelector((state)=>{return state.auth});
+    console.log(creadential);
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -78,27 +75,29 @@ const Login = ({ isLoginOpen, loginController}) => {
     };
 
 
-    useEffect(() => {
-        if (creadentail.isLogin) {
-            loginController();
-            navigate(creadentail.userType === 'Buyer' ? '/addItems' : '/');
-        }
-    }, [creadentail.isLogin, creadentail.userType, loginController, navigate]);
+    // useEffect(() => {
+    //     if (creadential.isLogin) {
+    //         loginController();
+    //         navigate(creadential.userType === 'Seller' ? '/addItems' : '/');
+    //     }
+    // }, [creadential.isLogin, creadential.userType, loginController, navigate]);
 
    
     
     useEffect((e)=>{
-        //  creadentail.isLogin == true && creadentail.userType == 'Buyer'
+        //  creadential.isLogin == true && creadential.userType == 'Buyer'
      
-        if(creadentail.isLogin == true && creadentail.userType == 'Seller')
+        if(creadential.isLogin == true && creadential.userType == 'Seller')
         { // navigating to the homepage
+            loginController();
            navigate('/sellerMenu');    
         }
-        if(creadentail.isLogin == true && creadentail.userType == 'Buyer'){
+        if(creadential.isLogin == true && creadential.userType == 'Buyer'){
+            loginController();
             navigate('./');   
         }
 
-    },[creadentail.isLogin, creadentail])
+    },[creadential.isLogin, creadential])
    
    return (
         <>
@@ -143,8 +142,8 @@ const Login = ({ isLoginOpen, loginController}) => {
                                      <label htmlFor="buyer">
                                          <input type="radio" className = {`${Style1.inputStyle}`}  name="userType" id="buyer" value="Buyer" {...register("userType")}/> Buyer
                                      </label>
-                                     {errors["userType"] && <span className={Style1.error} > {errors["userType"].message}</span>}
                                   </div>
+                                     {errors["userType"] && <span className={Style1.error} > {errors["userType"].message}</span>}
                              </div>
                             <button type="submit" className={Style1.btnSignup}>
                                 Login

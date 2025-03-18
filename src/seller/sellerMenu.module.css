@@ -1,15 +1,20 @@
 .sellerMenuWrapper{
     display: flex;
-    /* border:3px solid red; */
     padding:10px 0px ;
     background-color: #f4f4f4;
     column-gap: 5rem;
     justify-content: center;
 }
 .sellerMenuWrapper li{
-    /* border:3px solid red; */
-    padding:10px 30px;
+    padding:5px 15px;
     border-radius:10px;
-    background-color: #6af524;
+     color:white;
+     transition:2s;
+     font-weight:900;
+    background-color: rgb(5, 204, 5);
 
+}
+.sellerMenuWrapper li:hover{
+   opacity: 0.5;
+   
 }

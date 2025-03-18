@@ -1,7 +1,6 @@
 
 .productWrapper
 {  
-    /* border:3px solid green; */
     width:13.3vw;
     padding:1rem 0.2rem;
     background-color: white;
@@ -11,7 +10,6 @@
 
 }
 .productWrapper div:active,img:active{
-    /* background-color: green; */
     border:1px solid green
 }
 .productWrapper img{
@@ -30,7 +28,6 @@
     row-gap:5px;
     padding:10px 10px;
     line-height:120%;
-    /* border:3px solid blue;    */
 }
 .productContainer h2{
     font-size:1.5em;
