@@ -80,9 +80,14 @@
  .descriptionWrapper h1{
     text-align: center;
     color:#f57224;
+    text-transform: capitalize;
     font-weight:bold;
     font-size:1.5rem;
     padding:0.3rem 0.5rem
+ }
+ .descriptionWrapper h1:hover{
+    cursor:pointer;    
+    text-shadow: 0px 0px 2px;
  }
  .descriptionWrapper div{
     padding:1rem ;
@@ -92,7 +97,7 @@
  .descriptionWrapper .discount span{
 
     display: block;
-    color:blue;
+    color:#f57224;
     font-weight:600;
  }
 
@@ -104,7 +109,7 @@
  }
  .additionalInfo span{
     text-transform: capitalize;
-    color:blue;
+    color:#f57224;
     font-weight: bold;
     font-size:inherit;
  }
@@ -112,6 +117,7 @@
  .descriptionWrapper .quantity {
     display: flex;
     column-gap: 10px;
+    color:#f57224;
 }
 .descriptionWrapper .quantity  span:first-child{
     font-weight: bold;
@@ -123,21 +129,22 @@
  padding:0.5rem 1rem;
 }
 .descriptionWrapper .quantity button{
-    padding:0.5rem 1rem;
+    padding:0.2rem 0.5rem;
     border-radius:4px;
+    color:white;
+    font-size:1.5rem;
     background-color:rgba(128, 128, 128, 0.758);
-    /* background-color:    #f4f4f4; */
+    transition: 2s;
     font-weight: bold;
 } 
-.quantity button:hover{
-    box-shadow: 0px 0px 3px;
+.descriptionWrapper .quantity button:hover{
+    opacity: 0.5;
 }
 .buySellContainer{
     display: flex;
     column-gap: 10px;
 }
 
- 
 .buySellContainer button{
     /* border:3px solid #0000ff; */
     padding:0.5rem 0.5rem;
@@ -149,19 +156,15 @@
 }
 .buySellContainer button:first-child{
     background-color: rgba(0, 0, 255, 0.451);
-
 }
 .buySellContainer button:last-child{
     background-color: #f57224;
-
 }
  
-
 .buySellContainer button:hover{
 transition: all 1s linear ;
  background-color: rgba(7, 7, 82, 0.264);
 }
-
 
 /* here deliver location are design */
 .deliverWrapper{
@@ -184,9 +187,6 @@ transition: all 1s linear ;
     font-weight:bold;
     color:blue;
 }
-
-
-
 .sellerInfo{
     column-gap:0.5vw;
     justify-content:center;
@@ -243,11 +243,8 @@ transition: all 1s linear ;
     }
     .buySellContainer button {
         padding:0.2rem;
-        font-size:1rem;
-        
+        font-size:1rem;    
     }
-    
-    
     footer{
         display: none;
     }
@@ -280,6 +277,7 @@ transition: all 1s linear ;
     .descriptionWrapper h1{
         padding:0.1rem 0rem;
     }
+   
     .descriptionWrapper div{
         padding:0.2rem;
     }
@@ -317,7 +315,7 @@ transition: all 1s linear ;
 @media screen and (min-width:1200px) {
     .detailPage{
         padding:2rem 0;
-        font-size:1rem;
+        font-size:0.9rem;
     }
    .descriptionWrapper{
     row-gap: 2vh;
@@ -347,7 +345,7 @@ transition: all 1s linear ;
 
     }
     .descriptionWrapper .quantity button{
-        padding:0.5rem 1rem;
+        padding:0.2rem 0.9rem;
     }
    
     

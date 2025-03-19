@@ -214,3 +214,15 @@
      }
 
 }
+.propertyTitleStyle{
+
+color:#f57224;
+font-weight:bold;
+transition: 1s;
+opacity: 0.5;
+
+}
+.propertyTitleStyle:hover{
+    opacity: 0.8;
+
+}

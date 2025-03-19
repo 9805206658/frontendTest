@@ -22,11 +22,11 @@ const Product=({image,description,price,rating,discount,id,name})=>
     <div className = {Style.productWrapper} onClick={productClick} data-value={id}>
         <img src={`${import.meta.env.VITE_TEST_URL}${image}`}/>
       <div className = {Style.productContainer}>
-        <h2>{name?name:"KBS Cycle"}</h2>
+        <h2 className={`${Style.mainPopertyStyle}` }>{name?name:"KBS Cycle"}</h2>
           <p className={Style.description}>
             {description}
           </p>
-       <p className={Style.price}>price rs {price}</p>
+       <p className={`${Style.price} ${Style.mainPopertyStyle}`}>price rs {price}</p>
        <p className={Style.price}>
         {start}
        </p>

@@ -32,9 +32,9 @@
     padding:0.3rem;
     background-color: rgba(128, 128, 128, 0.354);
     border: none;
-    font-style: italic;
+    /* font-style: italic; */
     transition:1s;
-    color: green;
+    color: #f57224;
     font-size: 16px;
     border-radius: 10px;
     box-shadow: 0px 0px 5px gray;

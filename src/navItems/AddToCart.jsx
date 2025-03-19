@@ -1,4 +1,5 @@
 import Style from "../navItems/AddToCart.module.css"
+import Style1 from "../product/product.module.css";
 import Footer from "../footer/footer";
 import PaymentDetail from "../payment/payment";
 import axiosClient from "../api/axiosClient";
@@ -8,16 +9,37 @@ import createNotification from "../notification/notification";
 import { inDec } from "../api/productService";
 import { getSingleProduct } from "../api/productService";
 import axios from "axios";
+
+const updateIsCheck =async(isCheckAll,cartId,buyerId,checkStatus,setIscheckUpdate)=>{
+  const updateInfo={isAllCheck:isCheckAll,cartId:cartId,buyerId:buyerId,checkStatus:checkStatus};
+  try{
+     const res =await axiosClient.put("/updateIsCheck",{isAllCheck:isCheckAll,cartId:cartId,buyerId:buyerId,checkStatus:checkStatus});
+     if(res.status == 201)
+     { 
+      console.log("update");
+      setIscheckUpdate(prev =>prev+1);
+    }
+   }
+  catch(err)
+  { console.log(err); }
+ }
+
+
 const OrderSummary=({cartInfo})=>
 {
   let subTotal = 0;
   let total=0;
   let tax = 0;
+
    for(let i= 0; i < cartInfo.length; i++)
-   { subTotal += cartInfo[i].totalPrice;}
+   { 
+    if(cartInfo[i].isCheck) 
+    {
+    subTotal += cartInfo[i].totalPrice*cartInfo[i].quantity;
+    }
+  }
    tax = subTotal*0.13;
    total = tax+175+subTotal;
-  
   const navigate = useNavigate();
   const ptcHandler=()=>{
     const paymentDetail={
@@ -28,9 +50,6 @@ const OrderSummary=({cartInfo})=>
     }
     navigate('/paymentDetail',{state:{paymentDetail:paymentDetail}});
   }
-
-
-  
   return(
     <>
     <div className={`${Style.orderSummaryWrapper} ${Style.flexCol}`}>  
@@ -60,13 +79,14 @@ const OrderSummary=({cartInfo})=>
   )
 }
 
-const CartItem=({cart,setIsDelete})=>{
 
-  const {image,brand,description,productId,name,quantity,totalPrice,_id}= cart;
+const CartItem=({cart,setIsDelete,setIscheckUpdate})=>{
+
+  const {image,brand,description,productId,name,quantity,totalPrice,_id,isCheck,buyerId}= cart;
   const [productInfo,setProductInfo] = useState();
   const [finalQuantity,setFinalQuantity]= useState(quantity);
-  
   const [isUpdateCart,setIsUpdateCart] = useState(false);
+  // const [isCheckBox,setIsCheckBox] = useState();
 
   // here hit api to get total quantity of product
   useEffect(()=>{
@@ -80,24 +100,26 @@ const CartItem=({cart,setIsDelete})=>{
   useEffect(()=>{
    async function updateCart()
    {
-
-    if(finalQuantity != quantity)
+     if(finalQuantity != quantity)
     {
-   const updateInfo={
+        const updateInfo={
         productId:productId,
         cartId :_id,
         cartFinalQty:finalQuantity,
         productFinalQty:maxQuantity-finalQuantity,
        }
     try{const res = await axiosClient.put("/updateCart",updateInfo);
-       console.log(res); }
+       console.log(res); 
+      }
     catch(err)
-    { console.log(err);  }
+    { console.log(err);
+     } 
     }
   }
   updateCart();
 
   },[finalQuantity]);
+
 
 
   const deleteClickHandler =async(event)=>{
@@ -109,25 +131,28 @@ const CartItem=({cart,setIsDelete})=>{
         setIsDelete(prev=>prev+1);
          createNotification({  isSuccess:true,  description:res.data.message, placement:"topRight", duration:2 })
       }
-      else{
-        createNotification({isSuccess:false, description:res.data.error, placement:"topRight",duration:2})
+      else{ createNotification({isSuccess:false, description:res.data.error, placement:"topRight",duration:2})
        }
      }
      catch(err)
      { console.log(err); }
    }
-  
+ 
+  const updateCheckBox=()=>{
+    updateIsCheck(false,_id,buyerId,!isCheck,setIscheckUpdate);
+   }
+   
   return(
     <>
     <div className = {`${Style.cartItemContainer} ${Style.flexRow}`}>
-      <input type = "checkbox"/>
+      <input type = "checkbox" onChange={updateCheckBox} checked={isCheck} />
       <img src={`${import.meta.env.VITE_TEST_URL}${image}`}/>
       <p>
-        <span>Name:{name}</span>
+        <span className={Style1.mainPopertyStyle} >Name:{name}</span>
          <span className={`${Style.flexCol}`}>
           {description}
          </span>
-         <span>
+         <span className={Style1.mainPopertyStyle} >
             Brand :{brand}
          </span>
       </p>
@@ -141,11 +166,13 @@ const CartItem=({cart,setIsDelete})=>{
       <div className={`${Style.buttonWrapper} ${Style.flexRow}`}>
            <button onClick={(event)=>{
             inDec(event,setFinalQuantity,maxQuantity)
+            setIscheckUpdate(prev => prev+1);
              }} 
              data-value="+" >+</button>
            <span>{finalQuantity}</span>
            <button onClick={(event)=>{
             inDec(event,setFinalQuantity,maxQuantity)
+            setIscheckUpdate(prev => prev+1);
              }} 
              data-value="-" 
            >-</button>
@@ -176,48 +203,63 @@ const EmptyCart=()=>{
 const AddToCart=()=>{
 
   // here fetching data of the user
+  const [isCheckAll,setIscheckAll]= useState(true);
   const [isDelete ,setIsDelete]= useState(0);
   const [cartInfo,setCartInfo] =  useState();
+  const [isCheckUpdate,setIscheckUpdate] =useState(0);
    const allItemDelete=async(event)=>{
     event.preventDefault();
     try{
-      const res= await axiosClient.delete(`/deleteAllCart/${cartInfo[0].buyerId}`);
-      if(res.status==200)
-      {
-        setIsDelete(prev=>prev+1);
-         createNotification({  isSuccess:true,  description:res.data.message, placement:"topRight", duration:2 })
+         const res= await axiosClient.delete(`/deleteAllCart/${cartInfo[0].buyerId}`);
+         if(res.status==200)
+         {
+           setIsDelete(prev=>prev+1);
+            createNotification({  isSuccess:true,  description:res.data.message, placement:"topRight", duration:2 })
+         }
+         else{
+           createNotification({isSuccess:false, description:res.data.error, placement:"topRight",duration:2})
+          }
       }
-      else{
-        createNotification({isSuccess:false, description:res.data.error, placement:"topRight",duration:2})
-       }
-     }
      catch(err)
-     {
-      console.log(err);
-     }
+     { console.log(err);}
 
    }
   useEffect( ()=>{
     const getData=async()=>{
-
-      // console.log("deleteState"+isDelete);
+       let count = 0;
     try{
         const getCart = await axiosClient.get(`getCart/${localStorage.getItem("id")}`) ;
-         console.log("the cart info");
-        console.log(getCart);
           if(getCart.status == 200 )
-          {setCartInfo(getCart.data.message);} }
-        
+          {
+            setCartInfo(getCart.data.message);}
+            getCart.data.message?.forEach((item)=>{
+              
+              if(item.isCheck == false)
+              {
+                // alert("enter");
+                count = 1;
+                setIscheckAll(false);
+              }  
+            })
+            if(count == 0)
+            {
+               setIscheckAll(true);
+            }
+         }
         catch(err)
-        {
-          
-           setCartInfo(null);
-          
-
-        }
+        {  setCartInfo(null); }
   }
   getData();
-},[isDelete]);
+},[isDelete,isCheckUpdate]);
+
+
+const checkAllHanlder=(event)=>{
+  event.preventDefault();
+  setIscheckAll(prev =>!prev);
+  updateIsCheck(true,cartInfo[0]._id,cartInfo[0].buyerId,!isCheckAll,setIscheckUpdate);
+
+}
+
 
   return(
   // here defining the cAomponent header 
@@ -228,7 +270,7 @@ const AddToCart=()=>{
 
             <div className={`${Style.cartHeader} ${Style.flexRow}`}>
               <label forhtml="selectAll">
-                  <input type="checkbox" id="selectAll"/>&nbsp;&nbsp;check all 
+                  <input type="checkbox" id="selectAll"  onChange={checkAllHanlder}  checked={isCheckAll}/>&nbsp;&nbsp;check all 
               </label>
               <button onClick={allItemDelete}>
                   <i className="fa-solid fa-trash"></i> &nbsp;&nbsp;delete
@@ -238,7 +280,7 @@ const AddToCart=()=>{
             <div className={`${Style.cartItemWrapper} ${Style.flexCol}`}>
            
             {cartInfo?.map((cartData, index) => (
-                <CartItem key={cartData.id || index} cart={cartData}  setIsDelete={setIsDelete}/>
+                <CartItem key={cartData.id || index} cart={cartData}  setIsDelete={setIsDelete} setIscheckUpdate={setIscheckUpdate}/>
                   ))}
            </div>
 

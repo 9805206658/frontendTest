@@ -107,6 +107,8 @@ const SellerProductList=({menuClickHandler})=>{
   // here fetching data of the user
   const [isDelete ,setIsDelete]= useState(0);
   const [productInfo,setProductInfo] =  useState();
+
+  
    const allProductDelete=async(event)=>{
     event.preventDefault();
     try{

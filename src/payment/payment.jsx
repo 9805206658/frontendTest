@@ -31,6 +31,7 @@ const schema = yup.object().shape({
 
 const PaymentDetail = () => {
     const location = useLocation();
+    console.log(location.state);
     const { subTotal, total, charge,tax} = location.state.paymentDetail;
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
@@ -72,8 +73,6 @@ const PaymentDetail = () => {
                     <CreatePaymentEle type="text" name="successUrl" value={`${import.meta.env.VITE_TEST_URL}/success`} register={register} extraField={{ readOnly: true, hidden: true }} errors={errors} />
                     <CreatePaymentEle type="text" name="failureUrl" value={`${import.meta.env.VITE_TEST_URL}/failure`} register={register} extraField={{ readOnly: true, hidden: true }} errors={errors} />
                     <CreatePaymentEle type="text" labelName="User Id" name="userId" value={localStorage.getItem('id')} register={register} extraField={{ readOnly: true }} errors={errors} />
-
-
                     <button type="submit">Submit</button>
                 </form>
             </div>

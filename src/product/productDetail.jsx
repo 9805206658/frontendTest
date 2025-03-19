@@ -1,6 +1,6 @@
 import Style from "./productDetail.module.css";
 import { useState,useEffect,useRef } from "react";
-import { useLocation, } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import axiosClient from '../api/axiosClient';
 import Footer from '../footer/footer';
 import createNotification from "../notification/notification";
@@ -35,75 +35,96 @@ const ImageDisplayer=({images,initialImg})=>{
 
 const Discription =({product,initialImg,setIsAddCard})=>
 {
-   const [countQuantity ,setCountQuantity]= useState(1);
- 
+   const [countQuantity ,setCountQuantity]= useState(1); 
    const {name,brand,color,description,frameMaterial,price,quantity,warrentyPeriod,weight,_id,images,status}=product;
-  
+   const navigate = useNavigate();
  
    const addToCartHandler=async(event)=>{
     try{
-    if(status == 'inactive')
-    {  
-      setIsAddCard(prev=>!prev);
-              createNotification({
-                isSuccess:true,
-                description:"product is reserved",
-                placement:"topRight",
-                duration:2
-               })
-      return ;
-    }
-    console.log("the count quantity is"+countQuantity);
-      event.preventDefault();
-       const bId = localStorage.getItem('id');
-      const cart={
-        name:name?name:"KBS Cycle",
-        buyerId:bId,
-        productId:_id,
-        description:description,
-        quantity:countQuantity,
-        price:price,
-        brand:brand,
-        totalPrice:100,
-        finalQuantity:(quantity-countQuantity),
-        image:initialImg
-      }
-      
-          const res= await axiosClient.post('createCart',cart);
-          
-         
-            if(res.status == 200)
-             { 
-              setIsAddCard(prev=>!prev);
-              setCountQuantity(1);
-              createNotification({
-                isSuccess:true,
-                description:res.data.message,
-                placement:"topRight",
-                duration:3
-               })
-               
+          if(status == 'inactive')
+          {  
+            setIsAddCard(prev=>!prev);
+                    createNotification({
+                      isSuccess:true,
+                      description:"product is reserved",
+                      placement:"topRight",
+                      duration:2
+                     })
+            return ;
+          }
+          console.log("the count quantity is"+countQuantity);
+            event.preventDefault();
+            console.log("the quantity is"+quantity);
+             const bId = localStorage.getItem('id');
+            const cart={
+              name:name?name:"KBS Cycle",
+              buyerId:bId,
+              productId:_id,
+              description:description,
+              quantity:countQuantity,
+              price:price,
+              brand:brand,
+              totalPrice:100,
+              finalQuantity:(quantity-countQuantity),
+              image:initialImg
             }
-      }
-      catch(err)
-      {
-        console.log(err);
-        
-          // console.error("Error:", res); // Debugging log
-          createNotification({
-            isSuccess: false,
-            description: err.data?.error || "An unexpected error occurred",
-            placement: "topRight",
-            duration: 2,
-          });
-        
-       
-      }
+               const res= await axiosClient.post('createCart',cart);
+                  if(res.status == 200)
+                   { 
+                    setIsAddCard(prev=>!prev);
+                    setCountQuantity(1);
+                    createNotification({
+                      isSuccess:true,
+                      description:res.data.message,
+                      placement:"topRight",
+                      duration:3
+                     })
+                  }
+          }
+          catch(err)
+          {
+               console.log(err);
+              
+                // console.error("Error:", res); // Debugging log
+                createNotification({
+                  isSuccess: false,
+                  description: err.data?.error || "An unexpected error occurred",
+                  placement: "topRight",
+                  duration: 2,
+                });
+            }
    }
+
+  //  here create purchase handler 
+  const  buyNowclickHanlder =(e)=>{
+    e.preventDefault();
+    if(status == 'inactive')
+      {  
+        setIsAddCard(prev=>!prev);
+                createNotification({
+                  isSuccess:true,
+                  description:"product is reserved",
+                  placement:"topRight",
+                  duration:2
+                 })
+            return ;
+        }
+            let st = price *countQuantity;
+            let t =st*0.13;
+            const paymentDetail={
+              subTotal:st,
+              charge:175,
+              tax:t,
+              total:st+175+t
+              }
+          navigate("/paymentDetail",{state:{paymentDetail:paymentDetail}});
+  }
+
+
     return(
         <>
          <div className={Style.descriptionWrapper}>
-             <h1>{name?name:"KBS Cycle"}</h1>
+             <h1 >{name?name:"KBS Cycle"}</h1>
           <div className={Style.rating} >
             <span>{description}</span>
            {/* <i className="fa-solid fa-star"></i>
@@ -135,7 +156,7 @@ const Discription =({product,initialImg,setIsAddCard})=>
 
           </div>
           <div className={Style.buySellContainer}>
-            <button > Buy Now </button>
+            <button  onClick={buyNowclickHanlder}> Buy Now </button>
             <button onClick={addToCartHandler}> Add To Cart </button>
           </div>
           </div>
@@ -242,9 +263,6 @@ const ProductDetail =()=>
     const {productId,initialImg} = location.state;
     console.log(initialImg);
     const [productInfo,setProductInfo] = useState();
-    
-     
-   
     useEffect(()=>{
         const getInfo=async()=>{
           setProductInfo(await getSingleProduct(productId));
