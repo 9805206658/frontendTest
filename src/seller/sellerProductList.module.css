@@ -61,8 +61,35 @@
 }
 
 .discountWrapper{
-    row-gap:0.3vw;
+    row-gap:0.4vw;
+    align-items: center;
+    
 }
+
+.disButtonWrapper
+{
+   /* border:3px solid yellow; */
+   padding:0.1rem;
+   justify-content: center;
+   align-items: center;
+   column-gap:0.1rem;
+}
+ .discountWrapper .disButtonWrapper button~span{
+    padding: 0.1rem;
+   }
+
+   .discountWrapper .disButtonWrapper  button{
+       padding:0.1rem 0.5rem;
+       border-radius:4px;
+       color:white;
+       font-size:1rem;
+       background-color:rgba(128, 128, 128, 0.758);
+       transition: 2s;
+       font-weight: bold;
+   } 
+
+
+
 .buttonWrapper{
     /* border:3px solid blue; */
     row-gap:0.3vw;
@@ -80,7 +107,6 @@
     position: relative;
     width:80px;
     background-color:greenyellow;
-    /* border:1px solid pink; */
     display:inline-block;
     border-radius: 10px;
     height:43px;
@@ -132,7 +158,7 @@
 
 }
 .noCartWrapper p{
-   
+     
     font-size:1.2rem;
 }
 .noCartWrapper p+button{
@@ -218,3 +244,18 @@
      }
 
 }
+
+
+
+.propertyTitleStyle{
+
+    color:#f57224;
+    font-weight:bold;
+    transition: 1s;
+    opacity: 0.5;
+    
+    }
+    .propertyTitleStyle:hover{
+        opacity: 0.8;
+    
+    }

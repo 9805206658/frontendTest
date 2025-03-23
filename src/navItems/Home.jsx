@@ -51,7 +51,7 @@ const SellerInfo=({name,address,contact})=>
         <div className={Style.addressContactInfo} >
             {/* secondo child */}
              <img src={logoImg}/>
-             <span>Bikal shrestha</span>
+             <span>Ram shrestha</span>
         </div>
         <div className={Style.addressContactInfo}>
             <span>
@@ -112,7 +112,7 @@ const FlashSale=({flashSale})=>
         <div className ={Style.flashSaleWrapper} >
           {
              flashSale?.map((obj) => (
-                <Product id={obj._id}  key={obj._id} image={`${obj.imageName[0]}`} description={obj.description} price={obj.price} rating={3}  name={obj.name}/>
+                <Product id={obj._id}  key={obj._id} image={`${obj.imageName[0]}`} description={obj.description} price={obj.price} rating={3}  name={obj.name} discount={obj.discount}/>
               ))
           }
         </div>
@@ -164,6 +164,7 @@ function Home()
     {
      const getFlashSaleData=async()=>{
        const res = await axiosClient.get('/getFlashSale');
+       console.log(res.data.message);
        if(res.status == 200)
        {
          setFlashSale(res.data.message);

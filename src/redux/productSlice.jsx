@@ -1,22 +1,36 @@
-// import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
-// import axiosClient from "../api/axiosClient";
-// // make the async thunk
-// const productAsyncThunk =async(url)=>{
-//     createAsyncThunk(`Product/${url}`,(productInfo,thunkAPI)=>{
-//        try{
+import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import axiosClient from "../api/axiosClient";
+const searchQuery = createAsyncThunk(`product/search`,async(searchInfo,thunkApi)=>{
+    try{
+         const res = await axiosClient.post('search',searchInfo);
+          
 
+    }
+    catch(err)
+    {
+        console.log(err);
 
-//        }
-//        catch(err)
-//        {
-//         consolel.log(err);
-//        }
+    }
+})
 
-//     })
+const initialState = {
+    isSearch:false,
+    productList:[],
+}
+const productSlice = createSlice(
+    {
+        name:"product",
+        initialState,
+        reducers:{
+            search:(state)=>{
+                state.isSearch = true;
+            }
+        },
+        extraReducers:(builder)=>{
 
-// }
-
-
-// const createAsyncThunk
-// // create slice 
-// // export 
+        }
+    
+    }
+)
+export const {search} = productSlice.actions;
+export default productSlice.reducer;

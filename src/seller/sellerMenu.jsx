@@ -2,7 +2,6 @@
  import { useState } from "react";
  import SellerProductList from "./sellerProductList";
  import Style from "./sellerMenu.module.css";
-//  import Style from "./sellerProductList.module.css";
  const SellerMenu=()=>{
      
     const [isAddItem,setIsAddItem] = useState(true);

@@ -4,7 +4,7 @@ import cycle from '../assets/blue.jpg';
 import Style from '../product/product.module.css';
 const Product=({image,description,price,rating,discount,id,name})=>
 {
-  // console.log(name);
+  console.log(discount);
   const navigate = useNavigate();
 
   const productClick=(event)=>{
@@ -22,15 +22,21 @@ const Product=({image,description,price,rating,discount,id,name})=>
     <div className = {Style.productWrapper} onClick={productClick} data-value={id}>
         <img src={`${import.meta.env.VITE_TEST_URL}${image}`}/>
       <div className = {Style.productContainer}>
-        <h2 className={`${Style.mainPopertyStyle}` }>{name?name:"KBS Cycle"}</h2>
+        <h2 className={`${Style.mainPopertyStyle}` } >{name?name:"KBS Cycle"}</h2>
           <p className={Style.description}>
             {description}
           </p>
        <p className={`${Style.price} ${Style.mainPopertyStyle}`}>price rs {price}</p>
        <p className={Style.price}>
+
+         { 
+          discount>0 && (<p className = {`${Style.mainPopertyStyle}` } >{discount}%</p>)
+         
+         }
+        {/* here displaying thie start */}
         {start}
        </p>
-        {discount &&<p>discount 50%</p>}
+       
      </div>
     </div>
  )

@@ -16,6 +16,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { BrowserRouter as Router,Routes, Route,NavLink} from 'react-router-dom';
 import SellerMenu from './seller/sellerMenu';
 const SearchBar=()=>{
+   // here peforming search bar functinality
     return (
         <div className={Style.searchContainer}>
           <input type="search" placeholder="Enter search item" className={Style.searchInput} />
@@ -35,7 +36,7 @@ const ProfilePicture=()=>{
         <>
         {userName &&
         <div onClick={profileClick} className={Style.profileWrapper}>
-            <img src={logoImg}></img>
+             <i class="fa-solid fa-user"></i>
             <span>{userName}</span>
         </div>
         }
@@ -45,6 +46,7 @@ const ProfilePicture=()=>{
 function App() {
     // here creating state 
     const dispatch = useDispatch();
+    
     const [isLoginOpen,setIsLoginOpen] = useState(false);
     const loginHandler=(e)=>{
         // e.preventDefault();

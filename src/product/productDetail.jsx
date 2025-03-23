@@ -36,7 +36,7 @@ const ImageDisplayer=({images,initialImg})=>{
 const Discription =({product,initialImg,setIsAddCard})=>
 {
    const [countQuantity ,setCountQuantity]= useState(1); 
-   const {name,brand,color,description,frameMaterial,price,quantity,warrentyPeriod,weight,_id,images,status}=product;
+   const {name,brand,color,description,frameMaterial,price,quantity,weight,_id,status,discount}=product;
    const navigate = useNavigate();
  
    const addToCartHandler=async(event)=>{
@@ -64,6 +64,7 @@ const Discription =({product,initialImg,setIsAddCard})=>
               quantity:countQuantity,
               price:price,
               brand:brand,
+              discount:discount,
               totalPrice:100,
               finalQuantity:(quantity-countQuantity),
               image:initialImg

@@ -1,7 +1,6 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import createNotification from "../notification/notification";
 import axiosClient from "../api/axiosClient";
-// 
 const createAsyncThunkPost=(url)=>{
  return (createAsyncThunk(`auth/${url}`,async(userInfo,thunkAPI)=>{
   try{

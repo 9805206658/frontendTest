@@ -4,17 +4,17 @@ import axiosClient from "../api/axiosClient";
 import { useEffect ,useState} from "react";
 import createNotification from "../notification/notification";
 import Style from './sellerProductList.module.css';
+import { set } from "react-hook-form";
+import { inDec } from "../api/productService";
 
 
 const CartItem=({product,setIsDelete})=>{
    
-  const {imageName,brand,description,name,price,_id,isFlashSale}= product;
+  const {imageName,brand,description,name,price,_id,isFlashSale,discount}= product;
   const [isFlash,setIsFlash] = useState(isFlashSale);
-  console.log(isFlashSale);
-
+  const [disPer,setDisPer] = useState(discount);
   const flashSaleHandler=(event)=>{
     event.preventDefault();
-    // console.log(event.currentTarget.getAttribute('data-value'));
     setIsFlash(prev=>!prev);
    
   }
@@ -37,6 +37,26 @@ const CartItem=({product,setIsDelete})=>{
   }
   flashSaleUpdate();
   },[isFlash])
+
+
+  useEffect(()=>{
+    const discountUpdate=async()=>{ 
+          
+               try{
+               const res = await axiosClient.put(`discountUpdate/${_id}/${disPer}`);
+               console.log(res);
+                if(res.status==200)
+                { setIsDelete(prev=>prev+1); }
+               }
+               catch(err)
+               {
+             console.log(err);
+               }
+             
+   }
+   if(disPer != discount)
+   discountUpdate();
+   },[disPer]);
 
   const deleteClickHandler =async(event)=>{
     try{
@@ -61,19 +81,29 @@ const CartItem=({product,setIsDelete})=>{
       <input type = "checkbox"/>
       <img src={`${import.meta.env.VITE_TEST_URL}${imageName[0]}`}/>
       <p>
-        <span>Name:{name?name:"KBS CYCLE"}</span>
+        <span className={`${Style.propertyTitleStyle}`} >Name:{name?name:"KBS CYCLE"}</span>
          <span className={`${Style.flexCol}`}>
           {description}
          </span>
-         <span>
+         <span className={`${Style.propertyTitleStyle}`}>
             Brand :{brand}
          </span>
       </p>
       {/* discound info wrapper */}
       <div className={`${Style.discountWrapper} ${Style.flexCol}`}>
-           <span>Rs{price}</span>
-           <s>1000</s>
-           <span>10%</span>
+           <span>Rs {price}</span>
+           {/* here making the two button for discount */}
+
+           <div className={`${Style.disButtonWrapper} ${Style.flexRow}`}>
+               <button data-value="+" onClick={(event)=>{
+                inDec(event,setDisPer,100);
+                
+               }} >+</button>
+               <span>{disPer}%</span>
+               <button data-value="-"  onClick={(event)=>{
+                inDec(event,setDisPer,100);
+               }}>-</button>
+          </div>
            <i className="fa-solid fa-trash" onClick={deleteClickHandler}></i>
       </div>
       <div className={`${Style.buttonWrapper} ${Style.flexCol}`}>
@@ -81,7 +111,6 @@ const CartItem=({product,setIsDelete})=>{
           <input type="checkbox" onChange={flashSaleHandler}/>
           <span className={ isFlash?`${Style.slider} ${Style.trasformPosX}`:`${Style.slider} ${Style.trasformNegX}`}>{isFlash?'on':'off'}</span>
         </label>
-
         <p>flash sale</p>
       </div>
 

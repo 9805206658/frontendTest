@@ -98,13 +98,6 @@ const AddItems=()=>{
                 console.log("error :"+err  ); 
          } }
 
-        //  const inputElement = document.querySelector(`input[name="sellerId"]`);
-        //  console.log(inputElement);
-        //         if (inputElement) {
-        //         inputElement.value = "hello"; // Correct way to assign value to an input field
-        //         } else {
-        //         console.log("Input element with name='brand' not found.");
-        //         }
    return (<>
    <div className = {`${Style.wholeAddItemsWrapper}`}>
       <h2 className={`${Style.formTitle}`}>Enter Cycle Information</h2>

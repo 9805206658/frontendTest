@@ -27,6 +27,7 @@ const updateIsCheck =async(isCheckAll,cartId,buyerId,checkStatus,setIscheckUpdat
 
 const OrderSummary=({cartInfo})=>
 {
+  console.log(cartInfo);
   let subTotal = 0;
   let total=0;
   let tax = 0;
@@ -35,7 +36,10 @@ const OrderSummary=({cartInfo})=>
    { 
     if(cartInfo[i].isCheck) 
     {
-    subTotal += cartInfo[i].totalPrice*cartInfo[i].quantity;
+      let p  = cartInfo[i].totalPrice;
+      let d =  cartInfo[i].discount;
+      let disAmt = p*(d/100);
+      subTotal += (p - disAmt)*cartInfo[i].quantity;
     }
   }
    tax = subTotal*0.13;
@@ -82,10 +86,12 @@ const OrderSummary=({cartInfo})=>
 
 const CartItem=({cart,setIsDelete,setIscheckUpdate})=>{
 
-  const {image,brand,description,productId,name,quantity,totalPrice,_id,isCheck,buyerId}= cart;
+  const {image,brand,description,productId,name,quantity,totalPrice,_id,isCheck,buyerId,discount,price}= cart;
   const [productInfo,setProductInfo] = useState();
   const [finalQuantity,setFinalQuantity]= useState(quantity);
   const [isUpdateCart,setIsUpdateCart] = useState(false);
+  
+  const disAmount = price * (discount/100);
   // const [isCheckBox,setIsCheckBox] = useState();
 
   // here hit api to get total quantity of product
@@ -158,9 +164,9 @@ const CartItem=({cart,setIsDelete,setIscheckUpdate})=>{
       </p>
       {/* discound info wrapper */}
       <div className={`${Style.discountWrapper} ${Style.flexCol}`}>
-           <span>Rs{totalPrice}</span>
-           <s>1000</s>
-           <span>10%</span>
+           <span>Rs{price-disAmount}</span>
+           <s>{price}</s>
+           <span>{discount}%</span>
            <i className="fa-solid fa-trash" onClick={deleteClickHandler}></i>
       </div>
       <div className={`${Style.buttonWrapper} ${Style.flexRow}`}>

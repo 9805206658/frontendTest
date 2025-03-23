@@ -4,6 +4,7 @@
    flex-direction:row;
    justify-content: center;
    width:100%;
+   background-color:#f4f4f4;
    min-height:60vh;
 
 
@@ -30,11 +31,12 @@
 }
 .sortBtn{
     padding:0.3rem;
-    background-color: rgba(128, 128, 128, 0.354);
+    background-color: white;
     border: none;
     /* font-style: italic; */
     transition:1s;
-    color: #f57224;
+    color: #f57124af;
+    font-weight: 700px;
     font-size: 16px;
     border-radius: 10px;
     box-shadow: 0px 0px 5px gray;
