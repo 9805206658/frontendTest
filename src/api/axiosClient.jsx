@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl ='http://localhost:5000';
+const baseUrl ='https://backendtest-ddis.onrender.com';
 // 'https://backendtest-ddis.onrender.com'; 
 // import.meta.env.VITE_TEST_URL
 // 'http://localhost:5000';
