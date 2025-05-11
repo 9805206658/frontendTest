@@ -12,15 +12,38 @@ import ProductDetail from './product/productDetail';
 import { useNavigate } from 'react-router-dom';
 import PaymentDetail from './payment/payment';
 import Profile from './navItems/profile';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch,useSelector} from 'react-redux';
+import { useEffect } from 'react';
 import { BrowserRouter as Router,Routes, Route,NavLink} from 'react-router-dom';
+import { searchQuery } from './redux/productSlice';
 import SellerMenu from './seller/sellerMenu';
 const SearchBar=()=>{
    // here peforming search bar functinality
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+   const credentail = useSelector((state)=>state.product);
+   console.log(credentail);
+   useEffect(()=>{
+    if(credentail.isSearch == true)
+    {
+    navigate('/productList',{state:credentail});
+    }
+
+   },[credentail.isSearch])
+   const [searchText,setSearchText] = useState();
     return (
         <div className={Style.searchContainer}>
-          <input type="search" placeholder="Enter search item" className={Style.searchInput} />
-          <i className={`fa-solid fa-magnifying-glass ${Style.searchIcon}`}></i>
+          <input type="search" placeholder="Enter search item" className={Style.searchInput} 
+          value ={searchText}
+          onChange={(event)=>{
+            console.log(event.currentTarget.value);
+            setSearchText(event.currentTarget.value);
+          }}
+             
+          />
+          <i className={`fa-solid fa-magnifying-glass ${Style.searchIcon}`} onClick={()=>{
+            dispatch(searchQuery(searchText));
+          }}></i>
         </div>
       );
 
@@ -36,7 +59,7 @@ const ProfilePicture=()=>{
         <>
         {userName &&
         <div onClick={profileClick} className={Style.profileWrapper}>
-             <i class="fa-solid fa-user"></i>
+             <i className="fa-solid fa-user"></i>
             <span>{userName}</span>
         </div>
         }

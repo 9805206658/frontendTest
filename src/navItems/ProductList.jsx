@@ -3,10 +3,9 @@ import Product from '../product/product';
 import Footer from '../footer/footer';
 import { useEffect ,useState} from 'react';
 import axiosClient from '../api/axiosClient';
-const url =  import.meta.env.VITE_TEST_URL;
-
-// 'https://backendtest-ddis.onrender.com/'; 
-
+import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+const url =  import.meta.env.VITE_TEST_URL; 
 const SortItem=({name,sortBtnClick,dataValue})=>
 {   return(
        <>
@@ -24,7 +23,22 @@ function  ProductList()
   const [brands,setBrands] = useState({isBrand:false, items:null});//is brands = true,brands 
   const [colors,setColors] = useState({isColor:false ,items:null});
   const [prices,setPrices] = useState({isPrice:false,items:null});
+  const [search,setSearch] = useState({isSearch:false,items:null});
   const [isAllproduct,setIsAllProduct] = useState(true);
+  const location = useLocation();
+  if(location.state)
+  {
+  const {isSearch,productList} = location.state;
+  if(isSearch == true)
+    {
+      setColors({ isColor: false, items: null });
+      setPrices({ isPrice: false, items: null });
+      setBrands({ isBrand: false, items: null });
+      setSearch({isSearch:isSearch,items:productList});
+      setIsAllProduct(false);     
+     }
+  }
+  
   useEffect(()=>{
     const  readProduct=async()=>{
       try{
@@ -143,10 +157,12 @@ const renderProducts = (items) =>
           </div>
               
               <div className = {Style.productWrapper}>
+                   { search.isSearch && renderProducts(search.items)}
                    {isAllproduct && renderProducts(products)}
                    {brands.isBrand && renderProducts(brands.items)} 
                    {colors.isColor && renderProducts(colors.items)} 
-                   {prices.isPrice && renderProducts(prices.items)}    
+                   {prices.isPrice && renderProducts(prices.items)}
+                  
               </div>  
             
         </div>

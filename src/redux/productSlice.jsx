@@ -1,16 +1,13 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axiosClient from "../api/axiosClient";
-const searchQuery = createAsyncThunk(`product/search`,async(searchInfo,thunkApi)=>{
+ export const searchQuery = createAsyncThunk(`product/search`,async(searchInfo,thunkApi)=>{
     try{
-         const res = await axiosClient.post('search',searchInfo);
-          
-
-    }
+         const res = await axiosClient.get(`search/${searchInfo}`);
+         return res.data;
+         
+      }
     catch(err)
-    {
-        console.log(err);
-
-    }
+    {  console.log(err);}
 })
 
 const initialState = {
@@ -21,16 +18,20 @@ const productSlice = createSlice(
     {
         name:"product",
         initialState,
-        reducers:{
-            search:(state)=>{
-                state.isSearch = true;
-            }
-        },
         extraReducers:(builder)=>{
+            builder.addCase(searchQuery.fulfilled,(state,action)=>{
+                state.productList=(action.payload.message);
+                state.isSearch = true;
+            })
+            builder.addCase(searchQuery.pending,(state,action)=>{
+                state.isSearch = false;
+            })
+            builder.addCase(searchQuery.rejected,(state,action)=>{
+                state.isSearch = false ;
+            })
 
         }
     
     }
 )
-export const {search} = productSlice.actions;
 export default productSlice.reducer;
